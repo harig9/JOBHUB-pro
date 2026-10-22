@@ -1,0 +1,28 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "User profile and career settings in JobHub Pro",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "Unique Firebase Authentication user ID" },
+        "fullName": { "type": "string", "description": "User full name" },
+        "email": { "type": "string", "description": "Verified or registered email" },
+        "phone": { "type": "string", "description": "Verified phone number with country code" },
+        "headline": { "type": "string", "description": "Professional headline or target role" },
+        "targetRole": { "type": "string", "description": "Target job title for career suite" },
+        "yearsExperience": { "type": "number", "description": "Years of professional experience" },
+        "authProvider": { "type": "string", "description": "Authentication method used (google, phone, password)" },
+        "createdAt": { "type": "string", "description": "Account creation timestamp ISO" },
+        "updatedAt": { "type": "string", "description": "Last updated timestamp ISO" }
+      },
+      "required": ["uid", "fullName", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "UserProfile",
+      "description": "User profile data isolated strictly by authenticated user ID"
+    }
+  }
+}

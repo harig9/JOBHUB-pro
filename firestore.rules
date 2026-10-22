@@ -1,0 +1,44 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Global Safety Net: Default-deny all unmapped collections
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function isValidUserProfile(userId) {
+      return incoming().uid == request.auth.uid &&
+             incoming().fullName is string &&
+             incoming().fullName.size() >= 2 &&
+             incoming().fullName.size() <= 100 &&
+             (!('email' in incoming()) || incoming().email is string) &&
+             (!('phone' in incoming()) || incoming().phone is string) &&
+             (!('targetRole' in incoming()) || incoming().targetRole is string);
+    }
+
+    // User Profile Documents (Users can only read and manage their own profile)
+    match /users/{userId} {
+      allow get: if isOwner(userId) && isValidId(userId);
+      allow list: if false; // Disallow querying all users
+      allow create, update: if isOwner(userId) && isValidId(userId) && isValidUserProfile(userId);
+      allow delete: if isOwner(userId) && isValidId(userId);
+    }
+  }
+}

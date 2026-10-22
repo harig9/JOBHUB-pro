@@ -1,0 +1,6 @@
+{
+  "name": "JobHub Pro",
+  "description": "Complete AI-powered job management and career acceleration platform featuring ATS optimization, resume builder, application tracking, cover letter studio, and interview prep.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
