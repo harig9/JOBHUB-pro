@@ -10,6 +10,7 @@ import interviewsRoutes from './server/routes/interviews.js';
 import analyticsRoutes from './server/routes/analytics.js';
 import systemRoutes from './server/routes/system.js';
 import documentsRoutes from './server/routes/documents.js';
+import careerRoutes from './server/routes/careerSuite.js';
 
 dotenv.config();
 
@@ -43,6 +44,7 @@ app.use('/api/interviews', interviewsRoutes);
 app.use('/api/analytics', analyticsRoutes);
 app.use('/api/system', systemRoutes);
 app.use('/api/documents', documentsRoutes);
+app.use('/api/career', careerRoutes);
 
 // Health check endpoint
 app.get('/api/health', (req: Request, res: Response) => {

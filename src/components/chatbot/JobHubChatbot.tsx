@@ -40,10 +40,12 @@ interface JobHubChatbotProps {
 }
 
 const STARTER_PROMPTS = [
+  { label: '📊 Biggest Skill Gaps', prompt: 'Find the biggest skill gaps for my target role and suggest recommended roadmap actions.' },
+  { label: '📅 7-Day Learning Plan', prompt: 'Create a seven-day learning plan for campus placements and technical interviews.' },
+  { label: '📈 Weekly Career Progress', prompt: 'Summarize my career progress this week across applications, roadmaps, and coding lab.' },
+  { label: '💰 CTC & In-Hand Breakdown', prompt: 'Explain the difference between fixed CTC, variable pay, and monthly in-hand take-home salary in India.' },
+  { label: '🤝 Cold Outreach Referral', prompt: 'How do I draft a high-converting cold message to an alumni or recruiter for a job referral?' },
   { label: '🎯 How to reach 85%+ ATS?', prompt: 'How can I optimize my resume to reliably score 85%+ across enterprise ATS algorithms like Greenhouse and Workday?' },
-  { label: '📅 Upcoming Deadlines & Interviews', prompt: 'Summarize my current upcoming deadlines, scheduled interview dates, and next milestones.' },
-  { label: '💼 Stripe System Design Prep', prompt: 'Give me a structured STAR preparation guide and architectural checklist for a distributed platforms role at Stripe.' },
-  { label: '✍️ Cover Letter Opening', prompt: 'Give me three high-converting opening hooks for my senior engineering cover letter.' },
 ];
 
 const INITIAL_MESSAGE: ChatMessage = {
@@ -308,8 +310,12 @@ export function JobHubChatbot({ jobs = [], resumes = [], onNavigateTab }: JobHub
             title="Open JobHub Pro AI Assistant"
             className="group relative flex items-center gap-2.5 px-4 py-3 rounded-2xl bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-500 hover:to-indigo-600 text-white font-semibold text-xs shadow-xl shadow-indigo-600/30 hover:shadow-2xl hover:shadow-indigo-600/40 transition-all duration-200 cursor-pointer border border-indigo-400/30"
           >
-            <div className="relative">
-              <Bot className="w-4 h-4 text-white" />
+            <div className="relative w-6 h-6 rounded-lg overflow-hidden bg-white p-0.5 shrink-0 shadow-2xs">
+              <img
+                src="/jobhub-logo.png"
+                alt="JobHub Pro Logo"
+                className="w-full h-full object-contain"
+              />
               <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-emerald-400 ring-2 ring-indigo-700 animate-pulse" />
             </div>
             <span className="tracking-tight">JobHub Pro AI</span>
@@ -330,8 +336,12 @@ export function JobHubChatbot({ jobs = [], resumes = [], onNavigateTab }: JobHub
           {/* Header */}
           <div className="px-4 py-3 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/80 flex items-center justify-between gap-2 shrink-0">
             <div className="flex items-center gap-2.5 min-w-0">
-              <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-indigo-600 to-violet-600 text-white flex items-center justify-center shadow-xs shrink-0">
-                <Bot className="w-4 h-4" />
+              <div className="w-8 h-8 rounded-xl overflow-hidden bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-0.5 flex items-center justify-center shadow-xs shrink-0">
+                <img
+                  src="/jobhub-logo.png"
+                  alt="JobHub Pro AI"
+                  className="w-full h-full object-contain"
+                />
               </div>
               <div className="min-w-0">
                 <h3 className="font-bold text-xs text-slate-900 dark:text-slate-100 truncate flex items-center gap-1.5">

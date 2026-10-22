@@ -17,12 +17,16 @@ export function SystemModal({ isOpen, onClose, systemInfo }: SystemModalProps) {
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/60">
           <div className="flex items-center gap-3">
-            <div className="p-2 rounded-xl bg-indigo-50 dark:bg-indigo-500/10 border border-indigo-200 dark:border-indigo-500/20 text-indigo-600 dark:text-indigo-400">
-              <Server className="w-5 h-5" />
+            <div className="w-10 h-10 rounded-xl overflow-hidden bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm p-1 flex items-center justify-center shrink-0">
+              <img
+                src="/jobhub-logo.png"
+                alt="JobHub Pro"
+                className="w-full h-full object-contain"
+              />
             </div>
             <div>
               <h2 className="text-base font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2">
-                JobHub Pro — Full-Stack Architecture & Runtime
+                JobHub Pro — AI Career Suite Architecture & Runtime
                 <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-500/30 font-semibold font-mono">
                   Active
                 </span>

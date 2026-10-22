@@ -237,17 +237,24 @@ export function AuthModal() {
             <X className="w-4 h-4" />
           </button>
 
-          {/* Logo Brand Pill */}
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-200/80 dark:border-indigo-800/80 mb-2.5">
-            <div className="w-4 h-4 rounded-md bg-indigo-600 text-white flex items-center justify-center">
-              <Briefcase className="w-2.5 h-2.5" />
+          {/* Logo Brand Header */}
+          <div className="flex flex-col items-center justify-center mb-2.5">
+            <div className="w-16 h-16 rounded-2xl overflow-hidden bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-md p-1.5 mb-2 flex items-center justify-center">
+              <img
+                src="/jobhub-logo.png"
+                alt="JobHub Pro — AI Career Suite"
+                className="w-full h-full object-contain"
+                loading="eager"
+              />
             </div>
-            <span className="text-xs font-bold text-indigo-700 dark:text-indigo-300">
-              JobHub Pro
-            </span>
-            <span className="text-[10px] font-medium text-slate-400 dark:text-slate-500">
-              • AI Career Suite
-            </span>
+            <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-200/80 dark:border-indigo-800/80">
+              <span className="text-xs font-bold text-indigo-700 dark:text-indigo-300">
+                JobHub Pro
+              </span>
+              <span className="text-[10px] font-semibold text-purple-600 dark:text-purple-400">
+                • AI Career Suite
+              </span>
+            </div>
           </div>
 
           <h2 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-slate-100 tracking-tight">

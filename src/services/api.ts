@@ -9,6 +9,17 @@ import {
   ATSScanResult,
   CareerAnalytics,
   SystemInfo,
+  JobMatchResult,
+  CareerRoadmap,
+  AptitudeQuestionItem,
+  PracticeSubmission,
+  SkillGapNode,
+  CompanyResearchPack,
+  CareerVaultDocument,
+  OfferComparisonItem,
+  NetworkingContact,
+  WeeklyCareerReport,
+  CareerAchievement,
 } from '../types/index.js';
 
 async function handleResponse<T>(res: Response): Promise<T> {
@@ -422,6 +433,181 @@ export const api = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ messages, context }),
+    });
+    return handleResponse(res);
+  },
+
+  // 1. AI Job Match Engine
+  async getJobMatches(resumeId?: string): Promise<JobMatchResult[]> {
+    const q = resumeId ? `?resumeId=${resumeId}` : '';
+    const res = await fetch(`/api/career/match${q}`);
+    return handleResponse(res);
+  },
+
+  // 2. Career Roadmap
+  async getRoadmaps(): Promise<CareerRoadmap[]> {
+    const res = await fetch('/api/career/roadmap');
+    return handleResponse(res);
+  },
+
+  async toggleRoadmapTask(roadmapId: string, taskId: string): Promise<CareerRoadmap> {
+    const res = await fetch('/api/career/roadmap/toggle-task', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ roadmapId, taskId }),
+    });
+    return handleResponse(res);
+  },
+
+  // 3. Coding & Aptitude Lab
+  async getCodingQuestions(category?: string, difficulty?: string): Promise<{ questions: AptitudeQuestionItem[]; submissions: PracticeSubmission[] }> {
+    const query = new URLSearchParams();
+    if (category) query.set('category', category);
+    if (difficulty) query.set('difficulty', difficulty);
+    const res = await fetch(`/api/career/coding-lab?${query.toString()}`);
+    return handleResponse(res);
+  },
+
+  async submitPracticeAnswer(payload: {
+    questionId: string;
+    selectedOption?: number;
+    submittedCode?: string;
+    timeSpentSeconds?: number;
+  }): Promise<{ submission: PracticeSubmission; explanation: string; correctOptionIndex?: number }> {
+    const res = await fetch('/api/career/coding-lab/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+    return handleResponse(res);
+  },
+
+  // 4. Skill Gap Visualizer
+  async getSkillGaps(): Promise<SkillGapNode[]> {
+    const res = await fetch('/api/career/skill-gap');
+    return handleResponse(res);
+  },
+
+  async updateSkillProficiency(skillId: string, proficiency: SkillGapNode['userProficiency']): Promise<SkillGapNode> {
+    const res = await fetch(`/api/career/skill-gap/${skillId}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ proficiency }),
+    });
+    return handleResponse(res);
+  },
+
+  // 5. Company Packs
+  async getCompanyPacks(): Promise<CompanyResearchPack[]> {
+    const res = await fetch('/api/career/company-packs');
+    return handleResponse(res);
+  },
+
+  async toggleCompanyChecklist(packId: string, task: string): Promise<CompanyResearchPack> {
+    const res = await fetch('/api/career/company-packs/toggle', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ packId, task }),
+    });
+    return handleResponse(res);
+  },
+
+  // 6. Career Document Vault
+  async getVaultDocuments(): Promise<CareerVaultDocument[]> {
+    const res = await fetch('/api/career/vault');
+    return handleResponse(res);
+  },
+
+  async addVaultDocument(doc: {
+    name: string;
+    category: CareerVaultDocument['category'];
+    fileSize?: string;
+    fileType?: string;
+    notes?: string;
+    verified?: boolean;
+  }): Promise<CareerVaultDocument> {
+    const res = await fetch('/api/career/vault', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(doc),
+    });
+    return handleResponse(res);
+  },
+
+  async deleteVaultDocument(id: string): Promise<{ message: string }> {
+    const res = await fetch(`/api/career/vault/${id}`, {
+      method: 'DELETE',
+    });
+    return handleResponse(res);
+  },
+
+  // 7. Salary & Offer Decision Assistant
+  async getJobOffers(): Promise<OfferComparisonItem[]> {
+    const res = await fetch('/api/career/offers');
+    return handleResponse(res);
+  },
+
+  async saveJobOffer(offer: Partial<OfferComparisonItem>): Promise<OfferComparisonItem> {
+    const res = await fetch('/api/career/offers', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(offer),
+    });
+    return handleResponse(res);
+  },
+
+  // 8. Referral & Networking Tracker
+  async getNetworkingContacts(): Promise<NetworkingContact[]> {
+    const res = await fetch('/api/career/networking');
+    return handleResponse(res);
+  },
+
+  async saveNetworkingContact(contact: Partial<NetworkingContact>): Promise<NetworkingContact> {
+    const res = await fetch('/api/career/networking', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(contact),
+    });
+    return handleResponse(res);
+  },
+
+  // 9. Automated Weekly AI Career Report
+  async getWeeklyReports(): Promise<WeeklyCareerReport[]> {
+    const res = await fetch('/api/career/reports/weekly');
+    return handleResponse(res);
+  },
+
+  async generateWeeklyReport(): Promise<WeeklyCareerReport> {
+    const res = await fetch('/api/career/reports/weekly/generate', {
+      method: 'POST',
+    });
+    return handleResponse(res);
+  },
+
+  // 10. Achievements
+  async getAchievements(): Promise<CareerAchievement[]> {
+    const res = await fetch('/api/career/achievements');
+    return handleResponse(res);
+  },
+
+  async saveAchievement(ach: Partial<CareerAchievement>): Promise<CareerAchievement> {
+    const res = await fetch('/api/career/achievements', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(ach),
+    });
+    return handleResponse(res);
+  },
+
+  // 11. Smart Autofill
+  async getAutofillMapping(): Promise<{
+    candidateName: string;
+    mappedFields: { fieldName: string; value: string; confidence: string; source: string }[];
+    auditTimestamp: string;
+    disclaimer: string;
+  }> {
+    const res = await fetch('/api/career/autofill', {
+      method: 'POST',
     });
     return handleResponse(res);
   },

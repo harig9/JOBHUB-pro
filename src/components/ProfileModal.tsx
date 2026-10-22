@@ -64,12 +64,16 @@ export function ProfileModal({ isOpen, onClose, user, onSave }: ProfileModalProp
       <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 w-full max-w-xl rounded-2xl shadow-2xl overflow-hidden">
         <div className="flex items-center justify-between px-6 py-4 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/80">
           <div className="flex items-center gap-3">
-            <div className="p-2 rounded-xl bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400">
-              <UserIcon className="w-5 h-5" />
+            <div className="w-10 h-10 rounded-xl overflow-hidden bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm p-1 flex items-center justify-center shrink-0">
+              <img
+                src="/jobhub-logo.png"
+                alt="JobHub Pro"
+                className="w-full h-full object-contain"
+              />
             </div>
             <div>
-              <h3 className="font-bold text-slate-900 dark:text-slate-100">Professional Profile</h3>
-              <p className="text-xs text-slate-500 dark:text-slate-400">Master details for resumes, applications, and AI tailoring</p>
+              <h3 className="font-bold text-slate-900 dark:text-slate-100">JobHub Pro Member Profile</h3>
+              <p className="text-xs text-slate-500 dark:text-slate-400">Master details for resumes, applications, and AI career suite tailoring</p>
             </div>
           </div>
           <button onClick={onClose} className="p-1 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-white cursor-pointer">

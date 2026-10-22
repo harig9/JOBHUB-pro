@@ -24,7 +24,8 @@ service cloud.firestore {
     }
 
     function isValidUserProfile(userId) {
-      return incoming().uid == request.auth.uid &&
+      return (('id' in incoming() && incoming().id == request.auth.uid) ||
+              ('uid' in incoming() && incoming().uid == request.auth.uid)) &&
              incoming().fullName is string &&
              incoming().fullName.size() >= 2 &&
              incoming().fullName.size() <= 100 &&

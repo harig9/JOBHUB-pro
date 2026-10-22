@@ -301,3 +301,209 @@ export interface CustomReminder {
   createdAt: string;
 }
 
+// 1. AI Job Match Result
+export interface JobMatchResult {
+  jobId: string;
+  jobTitle: string;
+  company: string;
+  location: string;
+  workMode: 'On-site' | 'Hybrid' | 'Remote';
+  experienceRequired: string;
+  salaryText?: string;
+  matchScore: number;
+  matchingSkills: string[];
+  missingSkills: string[];
+  requiredQualifications: string[];
+  eligibilityGaps: string[];
+  relevanceExplanation: string;
+  calculationBreakdown: {
+    skillsMatchPct: number;
+    experienceMatchPct: number;
+    educationMatchPct: number;
+  };
+  isVerifiedJob: boolean;
+  statusInTracker?: JobStatus;
+}
+
+// 2. Personalized Career Roadmap
+export interface RoadmapTask {
+  id: string;
+  title: string;
+  description: string;
+  category: 'learning' | 'project' | 'practice' | 'certification';
+  durationHours: number;
+  completed: boolean;
+  dueDate?: string;
+  resourceLink?: string;
+  difficulty: 'Beginner' | 'Intermediate' | 'Advanced';
+}
+
+export interface RoadmapMilestone {
+  id: string;
+  weekNumber: number;
+  title: string;
+  goal: string;
+  tasks: RoadmapTask[];
+  completed: boolean;
+}
+
+export interface CareerRoadmap {
+  id: string;
+  userId: string;
+  targetRole: string;
+  currentSkills: string[];
+  targetDate: string;
+  weeklyHoursAvailability: number;
+  estimatedWeeks: number;
+  milestones: RoadmapMilestone[];
+  overallProgress: number;
+  assumptions: string[];
+  createdAt: string;
+  updatedAt: string;
+}
+
+// 3. Coding & Aptitude Practice Lab
+export interface AptitudeQuestionItem {
+  id: string;
+  category: 'quantitative' | 'logical' | 'verbal' | 'sql' | 'coding';
+  topic: string;
+  difficulty: 'easy' | 'medium' | 'hard';
+  question: string;
+  options?: string[];
+  correctOptionIndex?: number;
+  explanation: string;
+  starterCode?: string;
+  testCases?: { input: string; expectedOutput: string }[];
+  companyTags?: string[];
+}
+
+export interface PracticeSubmission {
+  id: string;
+  userId: string;
+  questionId: string;
+  selectedOption?: number;
+  submittedCode?: string;
+  isCorrect: boolean;
+  timeSpentSeconds: number;
+  submittedAt: string;
+}
+
+// 4. Visual Skill Gap Graph
+export interface SkillGapNode {
+  id: string;
+  skillName: string;
+  category: 'Core CS' | 'Frontend' | 'Backend' | 'Database' | 'DevOps & Cloud' | 'Aptitude & Soft Skills';
+  importance: 'Essential' | 'Preferred' | 'Bonus';
+  userProficiency: 'None' | 'Beginner' | 'Intermediate' | 'Advanced' | 'Expert';
+  status: 'verified' | 'in-progress' | 'gap';
+  verifiedEvidenceCount: number;
+  evidenceLabels: string[];
+  recommendedRoadmapAction: string;
+  relevanceRationale: string;
+}
+
+// 5. Company Research & Interview Packs
+export interface CompanyResearchPack {
+  id: string;
+  companyName: string;
+  industry: string;
+  headquarters: string;
+  indianOffices: string[];
+  overview: string;
+  hiringProcessRounds: {
+    roundNumber: number;
+    roundName: string;
+    focusAreas: string[];
+    tips: string;
+  }[];
+  likelyTechnicalQuestions: string[];
+  likelyBehavioralQuestions: string[];
+  questionsToAskInterviewer: string[];
+  prepChecklist: { task: string; done: boolean }[];
+  sourceReference: string;
+  updatedAt: string;
+}
+
+// 6. Secure Career Document Vault
+export interface CareerVaultDocument {
+  id: string;
+  userId: string;
+  name: string;
+  category: 'Resume' | 'Certificate' | 'Cover Letter' | 'Offer Letter' | 'Project Evidence' | 'Transcript';
+  fileSize: string;
+  fileType: string;
+  uploadDate: string;
+  downloadUrl?: string;
+  verified: boolean;
+  notes?: string;
+}
+
+// 7. Salary & Offer Decision Assistant
+export interface OfferComparisonItem {
+  id: string;
+  userId: string;
+  companyName: string;
+  roleTitle: string;
+  location: string;
+  workMode: 'On-site' | 'Hybrid' | 'Remote';
+  fixedCtcLpa: number;
+  variableCtcLpa: number;
+  joiningBonusInr: number;
+  deductionsEstInrMonthly: number;
+  netMonthlyTakeHomeEstInr: number;
+  benefits: string[];
+  growthScore: number;
+  cultureScore: number;
+  decisionStatus: 'considering' | 'accepted' | 'declined' | 'negotiating';
+  notes?: string;
+}
+
+// 8. Referral & Networking Tracker
+export interface NetworkingContact {
+  id: string;
+  userId: string;
+  name: string;
+  company: string;
+  role: string;
+  relationship: 'Alumni' | 'Recruiter' | 'Senior Engineer' | 'Peer' | 'Campus Senior';
+  linkedinUrl?: string;
+  email?: string;
+  referralStatus: 'not-contacted' | 'reached-out' | 'referral-submitted' | 'referred' | 'closed';
+  lastFollowUp?: string;
+  nextFollowUpDue?: string;
+  notes: string;
+  aiDraftedOutreach?: string;
+  createdAt: string;
+}
+
+// 9. Automated Weekly AI Career Report
+export interface WeeklyCareerReport {
+  id: string;
+  userId: string;
+  reportingPeriod: string;
+  applicationsSubmittedCount: number;
+  interviewsAttendedCount: number;
+  roadmapTasksCompletedCount: number;
+  skillsPracticedCount: number;
+  topStrengths: string[];
+  currentBlockers: string[];
+  strategicActionItems: string[];
+  motivationalSummary: string;
+  generatedAt: string;
+}
+
+// 10. Achievement & Evidence Profile
+export interface CareerAchievement {
+  id: string;
+  userId: string;
+  title: string;
+  category: 'Project' | 'Certification' | 'Internship' | 'Hackathon' | 'Academic' | 'Open Source';
+  issuerOrOrg: string;
+  issueDate: string;
+  skillsDemonstrated: string[];
+  projectOrCredentialLink?: string;
+  metricsResult: string;
+  suggestedResumeBullet: string;
+  verified: boolean;
+}
+

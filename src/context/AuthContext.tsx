@@ -12,11 +12,13 @@ import {
   RecaptchaVerifier,
   signInWithPhoneNumber,
   ConfirmationResult,
+  GoogleAuthProvider,
 } from 'firebase/auth';
 import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
 import { auth, firestore, googleProvider } from '../lib/firebase.js';
 import { User } from '../types/index.js';
 import { useToast } from '../components/Toast.js';
+import { googleDriveService } from '../services/googleDriveService.js';
 
 interface AuthContextType {
   currentUser: FirebaseUser | null;
@@ -31,6 +33,9 @@ interface AuthContextType {
   resetPassword: (email: string) => Promise<void>;
   logout: () => Promise<void>;
   updateUserProfile: (updates: Partial<User>) => Promise<void>;
+  isDriveConnected: boolean;
+  connectGoogleDrive: () => Promise<string>;
+  disconnectGoogleDrive: () => void;
   otpSent: boolean;
   otpCountdown: number;
   phoneTarget: string;
@@ -78,6 +83,35 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   // Auth Modal State
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [authModalMode, setAuthModalMode] = useState<'login' | 'register' | 'forgot'>('login');
+
+  // Google Drive Connection State
+  const [isDriveConnected, setIsDriveConnected] = useState(googleDriveService.isConnected());
+
+  useEffect(() => {
+    return googleDriveService.subscribe((conn) => {
+      setIsDriveConnected(conn);
+    });
+  }, []);
+
+  const connectGoogleDrive = useCallback(async () => {
+    try {
+      const token = await googleDriveService.connectDrive(auth);
+      showToast('Google Drive connected! You can now sync resumes and browse files.', 'success');
+      return token;
+    } catch (err: any) {
+      if (err.code === 'auth/popup-closed-by-user') {
+        throw new Error('Google sign-in popup was dismissed.');
+      }
+      const msg = err.message || 'Google Drive connection failed.';
+      showToast(msg, 'error');
+      throw err;
+    }
+  }, [showToast]);
+
+  const disconnectGoogleDrive = useCallback(() => {
+    googleDriveService.disconnect();
+    showToast('Google Drive disconnected', 'info');
+  }, [showToast]);
 
   const clearAuthError = useCallback(() => setAuthError(null), []);
 
@@ -152,6 +186,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         await fetchOrCreateProfile(fbUser);
       } else {
         setCurrentUser(null);
+        googleDriveService.disconnect();
         // Retain or load fallback profile if not logged in
         setUserProfile(DEMO_FALLBACK_USER);
       }
@@ -166,6 +201,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setAuthError(null);
     try {
       const result = await signInWithPopup(auth, googleProvider);
+      const credential = GoogleAuthProvider.credentialFromResult(result);
+      if (credential?.accessToken) {
+        googleDriveService.setAccessToken(credential.accessToken);
+      }
       const profile = await fetchOrCreateProfile(result.user);
       showToast(`Welcome back, ${profile.fullName}!`, 'success');
       closeAuthModal();
@@ -344,6 +383,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   // 6. Sign Out
   const logout = async () => {
     try {
+      googleDriveService.disconnect();
       await signOut(auth);
       showToast('Logged out of JobHub Pro successfully', 'info');
       setUserProfile(DEMO_FALLBACK_USER);
@@ -383,6 +423,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         resetPassword,
         logout,
         updateUserProfile,
+        isDriveConnected,
+        connectGoogleDrive,
+        disconnectGoogleDrive,
         otpSent,
         otpCountdown,
         phoneTarget,

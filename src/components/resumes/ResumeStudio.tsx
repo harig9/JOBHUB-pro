@@ -10,7 +10,9 @@ import {
 import { ResumePreview } from './ResumePreview.js';
 import { api } from '../../services/api.js';
 import { useToast } from '../Toast.js';
-import { exportResumeToPdf } from '../../utils/pdfExport.js';
+import { exportResumeToPdf, generateResumePdfBlob } from '../../utils/pdfExport.js';
+import { useAuth } from '../../context/AuthContext.js';
+import { googleDriveService, DriveFile } from '../../services/googleDriveService.js';
 import {
   FileText,
   Plus,
@@ -19,6 +21,8 @@ import {
   Download,
   FileDown,
   Upload,
+  HardDrive,
+  Cloud,
   CheckCircle2,
   Trash2,
   Sparkles,
@@ -42,6 +46,7 @@ interface ResumeStudioProps {
 
 export function ResumeStudio({ resumes, initialResumeId, onSelectResumeForATS, onRefreshResumes }: ResumeStudioProps) {
   const { showToast } = useToast();
+  const { isDriveConnected, connectGoogleDrive } = useAuth();
   const [activeResumeId, setActiveResumeId] = useState<string>(initialResumeId || resumes[0]?.id || '');
   const [activeEditorTab, setActiveEditorTab] = useState<'info' | 'summary' | 'experience' | 'skills' | 'education' | 'projects'>('experience');
   const [previewTemplate, setPreviewTemplate] = useState<ResumeTemplateId>('modern-clean');
@@ -49,6 +54,9 @@ export function ResumeStudio({ resumes, initialResumeId, onSelectResumeForATS, o
   const [rawResumeText, setRawResumeText] = useState('');
   const [isParsing, setIsParsing] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [isSavingToDrive, setIsSavingToDrive] = useState(false);
+  const [driveFilesForImport, setDriveFilesForImport] = useState<DriveFile[]>([]);
+  const [loadingDriveImport, setLoadingDriveImport] = useState(false);
 
   // Sync initialResumeId if changed
   React.useEffect(() => {
@@ -148,6 +156,63 @@ export function ResumeStudio({ resumes, initialResumeId, onSelectResumeForATS, o
       showToast(errorMsg, 'error');
     } finally {
       setIsExportingPdf(false);
+    }
+  };
+
+  const handleSaveToDrive = async () => {
+    setIsSavingToDrive(true);
+    try {
+      if (!googleDriveService.isConnected()) {
+        showToast('Connecting to Google Drive...', 'info');
+        await connectGoogleDrive();
+      }
+      const { blob, fileName } = generateResumePdfBlob(draftResume, {
+        templateId: previewTemplate,
+      });
+      const uploaded = await googleDriveService.uploadFile(fileName, 'application/pdf', blob);
+      showToast(`Saved "${uploaded.name}" to 'JobHub Pro Career Suite' in Google Drive!`, 'success');
+    } catch (err: any) {
+      if (err.message?.includes('dismissed') || err.message?.includes('popup-closed')) return;
+      showToast(err.message || 'Failed to save resume to Google Drive', 'error');
+    } finally {
+      setIsSavingToDrive(false);
+    }
+  };
+
+  const handleLoadDriveFilesForImport = async () => {
+    setLoadingDriveImport(true);
+    try {
+      if (!googleDriveService.isConnected()) {
+        await connectGoogleDrive();
+      }
+      const files = await googleDriveService.listFiles({ filterDocTypes: true });
+      setDriveFilesForImport(files);
+    } catch (err: any) {
+      showToast(err.message || 'Failed to load Google Drive files', 'error');
+    } finally {
+      setLoadingDriveImport(false);
+    }
+  };
+
+  const handleImportDriveFileIntoDraft = async (file: DriveFile) => {
+    setIsParsing(true);
+    try {
+      showToast(`Fetching "${file.name}" from Google Drive...`, 'info');
+      const text = await googleDriveService.downloadFileAsText(file.id, file.mimeType);
+      if (!text || text.trim().length < 50) {
+        throw new Error('Document did not contain extractable text.');
+      }
+      setRawResumeText(text);
+      setUploadedFileInfo({
+        name: file.name,
+        size: 'Drive Cloud Document',
+        chars: text.length,
+      });
+      showToast(`Loaded ${text.length.toLocaleString()} characters from Google Drive! Click Parse to import.`, 'success');
+    } catch (err: any) {
+      showToast(err.message || 'Failed to load Drive file', 'error');
+    } finally {
+      setIsParsing(false);
     }
   };
 
@@ -386,6 +451,17 @@ export function ResumeStudio({ resumes, initialResumeId, onSelectResumeForATS, o
           >
             <FileDown className="w-3.5 h-3.5 text-indigo-100" />
             <span>{isExportingPdf ? 'Exporting...' : 'Download PDF'}</span>
+          </button>
+
+          {/* Save to Google Drive Button */}
+          <button
+            onClick={handleSaveToDrive}
+            disabled={isSavingToDrive}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-blue-50 dark:bg-blue-950/60 hover:bg-blue-100 dark:hover:bg-blue-900/60 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-800 text-xs font-semibold shadow-sm transition-all cursor-pointer disabled:opacity-50"
+            title="Upload ATS-optimized PDF to 'JobHub Pro Career Suite' folder in Google Drive"
+          >
+            <HardDrive className={`w-3.5 h-3.5 text-blue-600 dark:text-blue-400 ${isSavingToDrive ? 'animate-spin' : ''}`} />
+            <span>{isSavingToDrive ? 'Saving...' : 'Save to Drive'}</span>
           </button>
 
           <button
@@ -851,10 +927,19 @@ export function ResumeStudio({ resumes, initialResumeId, onSelectResumeForATS, o
               <Eye className="w-4 h-4 text-indigo-400" />
               Live Visual Preview (Target 8.5" x 11" Canvas)
             </span>
-            <div className="flex items-center gap-2.5">
+            <div className="flex items-center gap-2">
               <span className="text-[11px] font-mono text-slate-500">
                 Style: {previewTemplate}
               </span>
+              <button
+                onClick={handleSaveToDrive}
+                disabled={isSavingToDrive}
+                className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-blue-50 dark:bg-blue-950/60 hover:bg-blue-100 dark:hover:bg-blue-900/80 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-800 text-[11px] font-semibold transition-all cursor-pointer shadow-xs disabled:opacity-50"
+                title="Save PDF directly to Google Drive"
+              >
+                <HardDrive className="w-3 h-3 text-blue-600 dark:text-blue-400" />
+                <span>{isSavingToDrive ? 'Saving...' : 'Drive'}</span>
+              </button>
               <button
                 onClick={handleExportPdf}
                 disabled={isExportingPdf}
@@ -945,7 +1030,7 @@ export function ResumeStudio({ resumes, initialResumeId, onSelectResumeForATS, o
                   Option 2: Paste Raw Resume Text
                 </label>
                 <textarea
-                  rows={8}
+                  rows={6}
                   value={rawResumeText}
                   onChange={(e) => setRawResumeText(e.target.value)}
                   placeholder="Paste raw resume contents here...
@@ -955,12 +1040,54 @@ alex@example.com | (555) 123-4567
 San Francisco, CA
 
 SUMMARY
-Senior Software Architect with 8+ years experience...
-
-EXPERIENCE
-Staff Engineer at TechCorp (2021 - Present)..."
+Senior Software Architect with 8+ years experience..."
                   className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl text-slate-800 dark:text-slate-200 focus:outline-none focus:border-indigo-500 font-mono text-xs leading-relaxed"
                 />
+              </div>
+
+              {/* Option 3: Import from Google Drive */}
+              <div className="space-y-2 pt-2 border-t border-slate-200 dark:border-slate-800">
+                <div className="flex items-center justify-between">
+                  <label className="block text-xs font-bold text-slate-800 dark:text-slate-200 uppercase tracking-wider">
+                    Option 3: Import from Google Drive
+                  </label>
+                  <button
+                    type="button"
+                    onClick={handleLoadDriveFilesForImport}
+                    disabled={loadingDriveImport}
+                    className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-blue-50 dark:bg-blue-950/60 hover:bg-blue-100 dark:hover:bg-blue-900/60 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-800 text-[11px] font-semibold transition-colors cursor-pointer disabled:opacity-50"
+                  >
+                    <HardDrive className={`w-3 h-3 ${loadingDriveImport ? 'animate-spin' : ''}`} />
+                    <span>{loadingDriveImport ? 'Loading...' : driveFilesForImport.length > 0 ? 'Refresh Drive' : 'Browse Google Drive'}</span>
+                  </button>
+                </div>
+
+                {driveFilesForImport.length > 0 ? (
+                  <div className="max-h-44 overflow-y-auto space-y-1 bg-slate-50 dark:bg-slate-950/60 p-2 rounded-xl border border-slate-200 dark:border-slate-800">
+                    {driveFilesForImport.map((f) => (
+                      <div
+                        key={f.id}
+                        className="flex items-center justify-between p-2 rounded-lg hover:bg-white dark:hover:bg-slate-900 text-xs transition-colors border border-transparent hover:border-slate-200 dark:hover:border-slate-800"
+                      >
+                        <div className="flex items-center gap-2 truncate">
+                          <FileText className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400 shrink-0" />
+                          <span className="font-medium text-slate-800 dark:text-slate-200 truncate">{f.name}</span>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={() => handleImportDriveFileIntoDraft(f)}
+                          className="px-2.5 py-1 rounded-md bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-[11px] shrink-0 transition-colors cursor-pointer"
+                        >
+                          Select & Load
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="text-[11px] text-slate-500">
+                    Click <strong>Browse Google Drive</strong> to inspect and load existing resume files from your cloud storage.
+                  </p>
+                )}
               </div>
 
               <div className="flex items-center justify-end gap-3 pt-3 border-t border-slate-200 dark:border-slate-800">

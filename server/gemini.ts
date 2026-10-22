@@ -1123,13 +1123,75 @@ For technical screens, practice verbalizing your thought process before writing 
 - **Purpose**: An AI-powered career assistant designed to help users with job applications, resume improvement, interview preparation, and career development.`;
   }
 
+  if (lower.includes('skill gap') || lower.includes('biggest gap') || lower.includes('skills')) {
+    return `### Skill Gap Analysis & Priority Recommendations:
+
+1. **System Design & High Concurrency**:
+   - *Status*: Essential gap for SDE-1 / SDE-2 campus hiring.
+   - *Recommended Action*: Master microservices latency patterns, database indexing (B-Tree vs Hash), and caching with Redis.
+2. **Relational Database Indexing (PostgreSQL/MySQL)**:
+   - *Status*: High-frequency interview question in Indian tech hubs.
+   - *Recommended Action*: Practice EXPLAIN ANALYZE queries in the **Coding & Aptitude Lab**.
+3. **Core CS Fundamentals**:
+   - Ensure operating systems (threads vs processes, mutexes) and computer networks (TCP 3-way handshake, HTTP/2) are sharp.
+   
+Navigate to the **Skill Gap Navigator** tab to review all verified evidence tags and update your proficiency ratings!`;
+  }
+
+  if (lower.includes('roadmap') || lower.includes('learning plan') || lower.includes('seven-day') || lower.includes('7-day')) {
+    return `### 7-Day Targeted Learning Sprint for Technical Placements:
+
+- **Day 1**: Arrays & Two-Pointers (DSA practice in Coding Lab).
+- **Day 2**: SQL Joins, Group By, Subqueries & Indexes.
+- **Day 3**: Operating Systems & Process Concurrency fundamentals.
+- **Day 4**: Computer Networks & REST vs GraphQL API design.
+- **Day 5**: Dynamic Programming & Binary Search Trees.
+- **Day 6**: System Design / High-Level Architecture for e-commerce carts or URL shorteners.
+- **Day 7**: Full-length Mock Interview in **Interview Coach** with STAR feedback.
+
+Track your daily tasks and milestone completion in the **Career Roadmap Studio** tab!`;
+  }
+
+  if (lower.includes('progress') || lower.includes('week') || lower.includes('report') || lower.includes('summary')) {
+    return `### Weekly Career Progress Summary:
+
+- **Application Velocity**: Applications submitted across enterprise portals and campus drives.
+- **Interview Readiness**: Mock interview sessions evaluated using STAR behavioral metrics.
+- **Coding Lab**: Practice challenges completed with server-side validation.
+- **Strategic Focus**: Prioritize applications with >80% ATS resume alignment and follow up with campus alumni on LinkedIn.
+
+Check the **Weekly Career Reports** tab to view or generate your automated AI performance report!`;
+  }
+
+  if (lower.includes('ctc') || lower.includes('offer') || lower.includes('in-hand') || lower.includes('salary')) {
+    return `### Indian CTC & In-Hand Pay Guide:
+
+- **Fixed vs Variable**: Fixed CTC is what determines your guaranteed monthly payroll. High variable bonuses (15%+) are contingent on company and individual performance.
+- **Statutory Deductions**: Mandatory Employee Provident Fund (EPF) is 12% of basic salary. Professional Tax (approx ₹200/mo) and TDS under the New/Old tax regimes reduce gross pay.
+- **Joining Bonus**: Usually paid in Month 1 or 2 with a 1-year clawback clause if you resign early.
+
+Use the **Offer Decision Assistant** tab to run precise monthly take-home calculations for your offers!`;
+  }
+
+  if (lower.includes('referral') || lower.includes('network') || lower.includes('cold message') || lower.includes('outreach')) {
+    return `### How to Request a Referral That Gets Answered:
+
+1. **Be Concise (Under 75 words)**: Senior engineers and recruiters have limited time.
+2. **Specify the Job ID**: Always provide the exact Job ID and role title from their careers portal.
+3. **Show Concrete Evidence**: Highlight 2 key skills and 1 measurable project result.
+4. **Offer an Easy Out**: "No worries if you're not accepting referrals right now, I appreciate your time!"
+
+Check the **Networking Tracker** tab for pre-drafted outreach templates ready to copy to LinkedIn!`;
+  }
+
   return `Hello! I'm your **JobHub Pro AI Assistant**.
 
 I can help you:
 - **Analyze & Optimize Resumes**: Boost ATS match rates to 85%+ with tailored bullet revisions.
 - **Master Mock Interviews**: Practice role-specific technical and behavioral questions using the STAR framework.
-- **Craft Tailored Cover Letters**: Generate executive, conversational, or direct letters for any role.
-- **Track Deadlines**: Organize your interview pipeline and prepare strategically for upcoming rounds.
+- **Navigate Career Roadmaps**: Track daily milestone tasks and study plans.
+- **Practice in Coding Lab**: Tackle placement aptitude, SQL, and DSA challenges.
+- **Evaluate Offers & CTC**: Calculate net monthly in-hand salary and compare packages.
 
 What would you like to work on today?`;
 }

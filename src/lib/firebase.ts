@@ -14,8 +14,28 @@ export const firestore = firebaseConfig.firestoreDatabaseId && firebaseConfig.fi
   ? getFirestore(app, firebaseConfig.firestoreDatabaseId)
   : getFirestore(app);
 
+// Google Drive Scopes
+export const DRIVE_SCOPES = [
+  'https://www.googleapis.com/auth/drive',
+  'https://www.googleapis.com/auth/drive.activity',
+  'https://www.googleapis.com/auth/drive.activity.readonly',
+  'https://www.googleapis.com/auth/drive.appdata',
+  'https://www.googleapis.com/auth/drive.apps.readonly',
+  'https://www.googleapis.com/auth/drive.file',
+  'https://www.googleapis.com/auth/drive.install',
+  'https://www.googleapis.com/auth/drive.meet.readonly',
+  'https://www.googleapis.com/auth/drive.metadata',
+  'https://www.googleapis.com/auth/drive.metadata.readonly',
+  'https://www.googleapis.com/auth/drive.photos.readonly',
+  'https://www.googleapis.com/auth/drive.readonly',
+  'https://www.googleapis.com/auth/drive.scripts',
+];
+
 // Configured Providers
 export const googleProvider = new GoogleAuthProvider();
 googleProvider.setCustomParameters({
   prompt: 'select_account',
+});
+DRIVE_SCOPES.forEach((scope) => {
+  googleProvider.addScope(scope);
 });

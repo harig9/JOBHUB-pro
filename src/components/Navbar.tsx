@@ -14,6 +14,15 @@ import {
   Palette,
   Check,
   LogIn,
+  HardDrive,
+  Compass,
+  Code2,
+  Building2,
+  Scale,
+  Users,
+  FolderArchive,
+  TrendingUp,
+  FileCheck,
 } from 'lucide-react';
 import { User, SystemInfo, Job, Resume, InterviewSession } from '../types/index.js';
 import { useTheme, AccentColor } from '../context/ThemeContext.js';
@@ -21,7 +30,24 @@ import { useAuth } from '../context/AuthContext.js';
 import { NotificationCenter } from './notifications/NotificationCenter.js';
 import { GlobalSearch } from './search/GlobalSearch.js';
 
-export type ActiveTab = 'jobs' | 'resumes' | 'ats' | 'coverLetters' | 'interviews' | 'analytics' | 'architecture';
+export type ActiveTab =
+  | 'jobs'
+  | 'matching'
+  | 'resumes'
+  | 'ats'
+  | 'coverLetters'
+  | 'interviews'
+  | 'roadmap'
+  | 'codingLab'
+  | 'skills'
+  | 'company'
+  | 'offers'
+  | 'networking'
+  | 'vault'
+  | 'reports'
+  | 'analytics'
+  | 'drive'
+  | 'architecture';
 
 interface NavbarProps {
   activeTab: ActiveTab;
@@ -40,6 +66,7 @@ interface NavbarProps {
   onSelectJobForInterview: (job: Job) => void;
   onSelectJobForATS: (job: Job) => void;
   onOpenScheduleModal: (job: Job) => void;
+  onOpenAutofillModal?: () => void;
 }
 
 const ACCENT_OPTIONS: { id: AccentColor; label: string; bgClass: string }[] = [
@@ -67,6 +94,7 @@ export function Navbar({
   onSelectJobForInterview,
   onSelectJobForATS,
   onOpenScheduleModal,
+  onOpenAutofillModal,
 }: NavbarProps) {
   const { theme, resolvedTheme, setTheme, toggleTheme, accentColor, setAccentColor } = useTheme();
   const { currentUser, openAuthModal } = useAuth();
@@ -83,12 +111,22 @@ export function Navbar({
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  const tabs = [
+  const tabs: { id: ActiveTab; label: string; icon: any; tag?: string }[] = [
     { id: 'jobs', label: 'Job Tracker', icon: Briefcase, tag: undefined },
+    { id: 'matching', label: 'AI Match Engine', icon: Sparkles, tag: 'Fit Score' },
     { id: 'resumes', label: 'Resume Studio', icon: FileText, tag: 'Editor' },
     { id: 'ats', label: 'ATS 85%+ Optimizer', icon: Target, tag: 'AI Scoring' },
     { id: 'coverLetters', label: 'Cover Letters', icon: Mail, tag: undefined },
     { id: 'interviews', label: 'Interview Coach', icon: Mic, tag: 'STAR Prep' },
+    { id: 'roadmap', label: 'Career Roadmap', icon: Compass, tag: 'Milestones' },
+    { id: 'codingLab', label: 'Coding & Aptitude Lab', icon: Code2, tag: 'Practice' },
+    { id: 'skills', label: 'Skill Gap Navigator', icon: Target, tag: 'Competency' },
+    { id: 'company', label: 'Company Packs', icon: Building2, tag: 'Intel' },
+    { id: 'offers', label: 'Offer & CTC Assistant', icon: Scale, tag: 'In-Hand' },
+    { id: 'networking', label: 'Networking & Referrals', icon: Users, tag: 'Outreach' },
+    { id: 'vault', label: 'Document Vault', icon: FolderArchive, tag: 'Verified' },
+    { id: 'reports', label: 'Weekly AI Reports', icon: TrendingUp, tag: 'Digest' },
+    { id: 'drive', label: 'Google Drive', icon: HardDrive, tag: 'Cloud' },
     { id: 'analytics', label: 'Career Analytics', icon: BarChart3, tag: undefined },
     { id: 'architecture', label: 'Architecture & SQL', icon: Server, tag: 'REST & DB' },
   ];
@@ -98,21 +136,30 @@ export function Navbar({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 gap-3 sm:gap-4">
           {/* Brand */}
-          <div className="flex items-center gap-3 shrink-0">
-            <div className="w-9 h-9 rounded-xl bg-indigo-600 dark:bg-indigo-500 p-0.5 shadow-sm flex items-center justify-center shrink-0">
-              <Briefcase className="w-5 h-5 text-white" />
+          <div
+            onClick={() => setActiveTab('jobs')}
+            className="flex items-center gap-3 shrink-0 cursor-pointer group"
+            title="JobHub Pro — AI Career Suite"
+          >
+            <div className="relative w-10 h-10 rounded-xl overflow-hidden bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm flex items-center justify-center shrink-0 p-1 group-hover:border-indigo-400 dark:group-hover:border-indigo-500 transition-colors">
+              <img
+                src="/jobhub-logo.png"
+                alt="JobHub Pro Official Brand Logo"
+                className="w-full h-full object-contain"
+                loading="eager"
+              />
             </div>
             <div>
               <div className="flex items-center gap-2">
                 <span className="font-bold text-base tracking-tight text-slate-900 dark:text-white">
                   JobHub Pro
                 </span>
-                <span className="text-[10px] font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 hidden sm:inline">
-                  Career Suite
+                <span className="text-[10px] font-semibold uppercase tracking-wider text-indigo-700 dark:text-indigo-300 bg-indigo-50 dark:bg-indigo-950/60 px-2 py-0.5 rounded-full border border-indigo-200/60 dark:border-indigo-800/60 hidden sm:inline">
+                  AI Career Suite
                 </span>
               </div>
               <p className="text-[11px] text-slate-500 dark:text-slate-400 font-normal hidden xl:block">
-                ATS 85%+ Optimization & Application Intelligence
+                ATS 85%+ Optimization & Placement Intelligence
               </p>
             </div>
           </div>
@@ -171,6 +218,18 @@ export function Navbar({
               onSelectJobForATS={onSelectJobForATS}
               onOpenScheduleModal={onOpenScheduleModal}
             />
+
+            {/* Smart Autofill Assistant */}
+            {onOpenAutofillModal && (
+              <button
+                onClick={onOpenAutofillModal}
+                title="Smart Application Autofill Assistant"
+                className="hidden sm:flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-indigo-50 dark:bg-indigo-950/50 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800 text-xs font-semibold hover:bg-indigo-100 dark:hover:bg-indigo-900/50 transition-colors cursor-pointer"
+              >
+                <FileCheck className="w-3.5 h-3.5" />
+                <span>Autofill</span>
+              </button>
+            )}
 
             {/* UI Color Palette Picker */}
             <div className="relative" ref={colorMenuRef}>

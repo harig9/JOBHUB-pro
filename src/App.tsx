@@ -27,10 +27,25 @@ import { CoverLetterStudio } from './components/coverLetters/CoverLetterStudio.j
 import { InterviewCoach } from './components/interview/InterviewCoach.js';
 import { AnalyticsDashboard } from './components/analytics/AnalyticsDashboard.js';
 import { ArchitectureStudio } from './components/system/ArchitectureStudio.js';
+import { GoogleDriveHub } from './components/drive/GoogleDriveHub.js';
 import { JobHubChatbot } from './components/chatbot/JobHubChatbot.js';
+
+// Advanced Career Suite Components
+import { JobMatchEngine } from './components/matching/JobMatchEngine.js';
+import { CareerRoadmapStudio } from './components/roadmap/CareerRoadmapStudio.js';
+import { CodingAptitudeLab } from './components/coding/CodingAptitudeLab.js';
+import { SkillGapVisualizer } from './components/skills/SkillGapVisualizer.js';
+import { CompanyResearchWorkspace } from './components/company/CompanyResearchWorkspace.js';
+import { CareerDocumentVault } from './components/vault/CareerDocumentVault.js';
+import { OfferComparisonAssistant } from './components/offers/OfferComparisonAssistant.js';
+import { NetworkingTracker } from './components/networking/NetworkingTracker.js';
+import { WeeklyCareerReports } from './components/reports/WeeklyCareerReports.js';
+import { AchievementProfile } from './components/achievements/AchievementProfile.js';
+import { SmartAutofillModal } from './components/autofill/SmartAutofillModal.js';
 
 function MainApp() {
   const { showToast } = useToast();
+  const [isAutofillModalOpen, setIsAutofillModalOpen] = useState(false);
 
   const [activeTab, setActiveTab] = useState<ActiveTab>('jobs');
   const [loading, setLoading] = useState(true);
@@ -253,13 +268,30 @@ function MainApp() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col items-center justify-center text-slate-500 dark:text-slate-400 gap-4 transition-colors">
-        <div className="w-12 h-12 rounded-2xl bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-200 dark:border-indigo-800 flex items-center justify-center">
-          <div className="w-6 h-6 border-2 border-indigo-600 dark:border-indigo-400 border-t-transparent rounded-full animate-spin" />
+      <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col items-center justify-center text-slate-500 dark:text-slate-400 gap-5 transition-colors">
+        <div className="relative">
+          <div className="w-20 h-20 rounded-3xl overflow-hidden bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xl p-2.5 flex items-center justify-center animate-pulse">
+            <img
+              src="/jobhub-logo.png"
+              alt="JobHub Pro — AI Career Suite"
+              className="w-full h-full object-contain"
+            />
+          </div>
+          <div className="absolute -bottom-1 -right-1 w-7 h-7 rounded-full bg-indigo-600 border-2 border-white dark:border-slate-950 flex items-center justify-center shadow">
+            <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+          </div>
         </div>
-        <p className="text-sm font-semibold tracking-wide text-slate-700 dark:text-slate-300">
-          Initializing JobHub Pro Enterprise Suite...
-        </p>
+        <div className="text-center space-y-1">
+          <h2 className="text-base font-bold text-slate-900 dark:text-slate-100 tracking-tight">
+            JobHub Pro
+          </h2>
+          <p className="text-xs font-semibold uppercase tracking-widest text-indigo-600 dark:text-indigo-400">
+            AI Career Suite
+          </p>
+          <p className="text-[11px] text-slate-400 dark:text-slate-500 pt-1">
+            Loading your career acceleration workspaces...
+          </p>
+        </div>
       </div>
     );
   }
@@ -313,6 +345,7 @@ function MainApp() {
           onSelectJobForInterview={handleSelectJobForInterview}
           onSelectJobForATS={handleSelectJobForATS}
           onOpenScheduleModal={(job) => setSchedulingJobGlobal(job)}
+          onOpenAutofillModal={() => setIsAutofillModalOpen(true)}
         />
 
         {/* Main Container */}
@@ -326,75 +359,150 @@ function MainApp() {
           />
 
           {activeTab === 'jobs' && (
-          <JobBoard
-            jobs={jobs}
-            targetJob={targetJobForBoard}
-            onAddJob={handleAddJob}
-            onUpdateJob={handleUpdateJob}
-            onUpdateStatus={handleUpdateStatus}
-            onDeleteJob={handleDeleteJob}
-            onSelectJobForATS={handleSelectJobForATS}
-            onSelectJobForCoverLetter={handleSelectJobForCoverLetter}
-            onSelectJobForInterview={handleSelectJobForInterview}
-          />
-        )}
+            <JobBoard
+              jobs={jobs}
+              targetJob={targetJobForBoard}
+              onAddJob={handleAddJob}
+              onUpdateJob={handleUpdateJob}
+              onUpdateStatus={handleUpdateStatus}
+              onDeleteJob={handleDeleteJob}
+              onSelectJobForATS={handleSelectJobForATS}
+              onSelectJobForCoverLetter={handleSelectJobForCoverLetter}
+              onSelectJobForInterview={handleSelectJobForInterview}
+            />
+          )}
 
-        {activeTab === 'resumes' && (
-          <ResumeStudio
-            resumes={resumes}
-            initialResumeId={targetResumeForStudio?.id}
-            onSelectResumeForATS={handleSelectResumeForATS}
-            onRefreshResumes={refreshResumes}
-          />
-        )}
+          {activeTab === 'matching' && (
+            <JobMatchEngine
+              resumes={resumes}
+              jobs={jobs}
+              onSelectJobForATS={(job) => {
+                handleSelectJobForATS(job);
+                setActiveTab('ats');
+              }}
+              onRefreshJobs={refreshJobs}
+            />
+          )}
 
-        {activeTab === 'ats' && (
-          <ATSOptimizer
-            resumes={resumes}
-            jobs={jobs}
-            initialResumeId={targetResumeForATS?.id}
-            initialJobId={targetJobForATS?.id}
-            onRefreshResumes={refreshResumes}
-            onRefreshJobs={refreshJobs}
-          />
-        )}
+          {activeTab === 'resumes' && (
+            <ResumeStudio
+              resumes={resumes}
+              initialResumeId={targetResumeForStudio?.id}
+              onSelectResumeForATS={handleSelectResumeForATS}
+              onRefreshResumes={refreshResumes}
+            />
+          )}
 
-        {activeTab === 'coverLetters' && (
-          <CoverLetterStudio
-            coverLetters={coverLetters}
-            jobs={jobs}
-            resumes={resumes}
-            initialJobId={targetJobForLetter?.id}
-            onRefreshCoverLetters={refreshCoverLetters}
-          />
-        )}
+          {activeTab === 'ats' && (
+            <ATSOptimizer
+              resumes={resumes}
+              jobs={jobs}
+              initialResumeId={targetResumeForATS?.id}
+              initialJobId={targetJobForATS?.id}
+              onRefreshResumes={refreshResumes}
+              onRefreshJobs={refreshJobs}
+            />
+          )}
 
-        {activeTab === 'interviews' && (
-          <InterviewCoach
-            sessions={interviews}
-            jobs={jobs}
-            initialJobId={targetJobForInterview?.id}
-            initialSessionId={targetInterviewSession?.id}
-            onRefreshInterviews={refreshInterviews}
-          />
-        )}
+          {activeTab === 'coverLetters' && (
+            <CoverLetterStudio
+              coverLetters={coverLetters}
+              jobs={jobs}
+              resumes={resumes}
+              initialJobId={targetJobForLetter?.id}
+              onRefreshCoverLetters={refreshCoverLetters}
+            />
+          )}
 
-        {activeTab === 'analytics' && (
-          <AnalyticsDashboard analytics={analytics} />
-        )}
+          {activeTab === 'interviews' && (
+            <InterviewCoach
+              sessions={interviews}
+              jobs={jobs}
+              initialJobId={targetJobForInterview?.id}
+              initialSessionId={targetInterviewSession?.id}
+              onRefreshInterviews={refreshInterviews}
+            />
+          )}
 
-        {activeTab === 'architecture' && (
-          <ArchitectureStudio />
-        )}
+          {activeTab === 'roadmap' && (
+            <CareerRoadmapStudio
+              onNavigateToCodingLab={() => setActiveTab('codingLab')}
+              onNavigateToSkillGap={() => setActiveTab('skills')}
+              onNavigateToInterviewCoach={() => setActiveTab('interviews')}
+            />
+          )}
+
+          {activeTab === 'codingLab' && (
+            <CodingAptitudeLab />
+          )}
+
+          {activeTab === 'skills' && (
+            <SkillGapVisualizer
+              onNavigateToRoadmap={() => setActiveTab('roadmap')}
+              onNavigateToCodingLab={() => setActiveTab('codingLab')}
+            />
+          )}
+
+          {activeTab === 'company' && (
+            <CompanyResearchWorkspace
+              onStartCompanyInterview={() => {
+                setActiveTab('interviews');
+              }}
+            />
+          )}
+
+          {activeTab === 'offers' && (
+            <OfferComparisonAssistant />
+          )}
+
+          {activeTab === 'networking' && (
+            <NetworkingTracker />
+          )}
+
+          {activeTab === 'vault' && (
+            <div className="space-y-8">
+              <CareerDocumentVault />
+              <AchievementProfile />
+            </div>
+          )}
+
+          {activeTab === 'reports' && (
+            <WeeklyCareerReports />
+          )}
+
+          {activeTab === 'analytics' && (
+            <AnalyticsDashboard analytics={analytics} />
+          )}
+
+          {activeTab === 'drive' && (
+            <GoogleDriveHub
+              resumes={resumes}
+              onRefreshResumes={refreshResumes}
+              onImportResumeToStudio={() => {
+                setActiveTab('resumes');
+              }}
+            />
+          )}
+
+          {activeTab === 'architecture' && (
+            <ArchitectureStudio />
+          )}
       </main>
 
       {/* Footer */}
       <footer className="no-print border-t border-slate-200 dark:border-slate-800 bg-white/60 dark:bg-slate-950/60 py-6 text-xs text-slate-500 dark:text-slate-400 transition-colors">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2.5">
+            <div className="w-6 h-6 rounded-lg overflow-hidden bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-0.5 shrink-0 flex items-center justify-center shadow-2xs">
+              <img
+                src="/jobhub-logo.png"
+                alt="JobHub Pro"
+                className="w-full h-full object-contain"
+              />
+            </div>
             <span className="font-bold text-slate-800 dark:text-slate-200">JobHub Pro</span>
             <span>•</span>
-            <span>AI Career Architecture & ATS Matching Platform</span>
+            <span className="font-semibold text-indigo-600 dark:text-indigo-400">AI Career Suite</span>
           </div>
           <div className="flex items-center gap-4">
             <button
@@ -439,6 +547,12 @@ function MainApp() {
           }}
         />
       )}
+
+      {/* Smart Application Autofill Modal */}
+      <SmartAutofillModal
+        isOpen={isAutofillModalOpen}
+        onClose={() => setIsAutofillModalOpen(false)}
+      />
 
       {/* JobHub Pro AI Assistant Chatbot */}
       <JobHubChatbot
