@@ -209,11 +209,11 @@ export function InterviewCoach({
   return (
     <div className="space-y-6">
       {/* Top Session Generator Bar */}
-      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 space-y-4 shadow-sm dark:shadow-xl">
+      <div className="bg-white dark:bg-[#0e1424]/80 border border-slate-200/80 dark:border-indigo-500/20 rounded-3xl p-5 space-y-4 shadow-sm dark:shadow-[0_8px_32px_rgba(0,0,0,0.37)] backdrop-blur-xl">
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
           <div className="space-y-1">
-            <h2 className="text-base font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2">
-              <Mic className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
+            <h2 className="text-base font-extrabold text-slate-900 dark:text-slate-100 flex items-center gap-2">
+              <Mic className="w-5 h-5 text-indigo-600 dark:text-cyan-400" />
               <span>AI Interview Studio & STAR Evaluator</span>
             </h2>
             <p className="text-xs text-slate-500 dark:text-slate-400">
@@ -225,7 +225,7 @@ export function InterviewCoach({
             <select
               value={genJobId}
               onChange={(e) => setGenJobId(e.target.value)}
-              className="px-3 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl text-xs text-slate-800 dark:text-slate-200 font-medium focus:outline-none focus:border-indigo-500 max-w-[220px] truncate cursor-pointer"
+              className="px-3 py-2 bg-slate-50 dark:bg-[#090d19]/90 border border-slate-200/80 dark:border-indigo-500/20 rounded-xl text-xs text-slate-800 dark:text-slate-200 font-medium focus:outline-none focus:border-indigo-500 dark:focus:border-indigo-400 max-w-[220px] truncate cursor-pointer"
             >
               {jobs.map((j) => (
                 <option key={j.id} value={j.id}>
@@ -236,17 +236,17 @@ export function InterviewCoach({
 
             <button
               onClick={() => setIsCheatSheetOpen(true)}
-              className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 font-semibold text-xs border border-slate-200 dark:border-slate-700 transition-colors cursor-pointer shadow-sm"
+              className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-100 dark:bg-[#090d19] hover:bg-slate-200 dark:hover:bg-[#131b31] text-slate-700 dark:text-slate-200 font-semibold text-xs border border-slate-200/80 dark:border-indigo-500/20 transition-colors cursor-pointer shadow-sm"
               title="View killer questions to ask and talking points"
             >
-              <FileText className="w-4 h-4 text-violet-600 dark:text-violet-400" />
+              <FileText className="w-4 h-4 text-violet-600 dark:text-cyan-400" />
               <span>Interview Cheat Sheet</span>
             </button>
 
             <button
               onClick={handleGenerateSession}
               disabled={isGenerating}
-              className="flex items-center gap-2 px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs shadow-sm transition-all disabled:opacity-50 cursor-pointer"
+              className="flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold text-xs shadow-sm dark:shadow-[0_0_15px_rgba(99,102,241,0.4)] transition-all disabled:opacity-50 cursor-pointer"
             >
               <Sparkles className="w-4 h-4 text-amber-300" />
               <span>{isGenerating ? 'Generating...' : 'New Mock Interview'}</span>
@@ -259,16 +259,16 @@ export function InterviewCoach({
           const matchedJob = jobs.find((j) => j.id === genJobId);
           if (!matchedJob?.interviewDate) return null;
           return (
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3 rounded-xl bg-indigo-50/80 dark:bg-indigo-950/60 border border-indigo-200 dark:border-indigo-800 text-xs text-indigo-950 dark:text-indigo-200">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3 rounded-2xl bg-indigo-50/80 dark:bg-[#090d19]/90 border border-indigo-200 dark:border-indigo-500/30 text-xs text-indigo-950 dark:text-indigo-200 shadow-sm">
               <div className="flex items-center gap-2">
-                <div className="p-1.5 rounded-lg bg-indigo-600 text-white">
+                <div className="p-1.5 rounded-xl bg-indigo-600 text-white shadow-xs">
                   <Clock className="w-4 h-4 animate-pulse" />
                 </div>
                 <div>
-                  <span className="font-bold text-indigo-900 dark:text-indigo-100">
+                  <span className="font-bold text-indigo-900 dark:text-white">
                     Live Interview Scheduled: {matchedJob.company} ({matchedJob.interviewRound || 'Interview'})
                   </span>
-                  <div className="text-[11px] text-indigo-700 dark:text-indigo-300">
+                  <div className="text-[11px] text-indigo-700 dark:text-indigo-300 font-mono">
                     {new Date(matchedJob.interviewDate).toLocaleString([], {
                       weekday: 'long',
                       month: 'short',
@@ -279,7 +279,7 @@ export function InterviewCoach({
                   </div>
                 </div>
               </div>
-              <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-indigo-600 text-white self-start sm:self-center">
+              <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-indigo-600 text-white self-start sm:self-center shadow-xs">
                 Alert Active
               </span>
             </div>
@@ -296,7 +296,7 @@ export function InterviewCoach({
                 {activeSession.company} — {activeSession.jobTitle}
               </span>
               {activeSession.overallScore && (
-                <span className="text-xs font-mono font-bold px-2 py-0.5 rounded bg-emerald-50 dark:bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-500/30 tabular-nums">
+                <span className="text-xs font-mono font-bold px-2 py-0.5 rounded-lg bg-emerald-50 dark:bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-500/30 tabular-nums">
                   Avg: {activeSession.overallScore}/10
                 </span>
               )}
@@ -311,10 +311,10 @@ export function InterviewCoach({
                   <div
                     key={q.id}
                     onClick={() => setSelectedQuestionId(q.id)}
-                    className={`p-3.5 rounded-xl border transition-all cursor-pointer space-y-1.5 ${
+                    className={`p-3.5 rounded-2xl border transition-all cursor-pointer space-y-1.5 backdrop-blur-md ${
                       isSelected
-                        ? 'bg-white dark:bg-slate-900 border-indigo-500 shadow-sm'
-                        : 'bg-white dark:bg-slate-900/40 border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700'
+                        ? 'bg-white dark:bg-[#131b31] border-indigo-500 dark:border-indigo-400 dark:shadow-[0_0_15px_rgba(99,102,241,0.25)]'
+                        : 'bg-white dark:bg-[#0e1424]/85 border-slate-200/80 dark:border-indigo-500/15 hover:border-indigo-400/50 dark:hover:border-indigo-400/40'
                     }`}
                   >
                     <div className="flex items-center justify-between gap-2">
@@ -345,15 +345,15 @@ export function InterviewCoach({
           {/* Right Column: Question Detail, Answer Area & Evaluation Feedback */}
           <div className="lg:col-span-8 space-y-4">
             {activeQuestion ? (
-              <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 space-y-5 shadow-sm dark:shadow-2xl">
+              <div className="bg-white dark:bg-[#0e1424]/85 border border-slate-200/80 dark:border-indigo-500/20 rounded-3xl p-6 space-y-5 shadow-sm dark:shadow-[0_8px_32px_rgba(0,0,0,0.37)] backdrop-blur-xl">
                 {/* Question Header */}
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                      <span className="text-[10px] uppercase tracking-wider font-bold px-2 py-0.5 rounded-full bg-indigo-50 dark:bg-indigo-500/15 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-500/30">
+                      <span className="text-[10px] uppercase tracking-wider font-bold px-2.5 py-0.5 rounded-full bg-indigo-50 dark:bg-indigo-500/15 text-indigo-700 dark:text-cyan-300 border border-indigo-200 dark:border-indigo-500/30 font-mono">
                         {activeQuestion.category} Question
                       </span>
-                      <span className="text-xs text-slate-500">
+                      <span className="text-xs text-slate-500 dark:text-slate-400">
                         Targeting: {activeSession.company}
                       </span>
                     </div>
@@ -361,14 +361,14 @@ export function InterviewCoach({
                     {/* TTS Button */}
                     <button
                       onClick={handleToggleSpeak}
-                      className={`flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+                      className={`flex items-center gap-1.5 px-3 py-1 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
                         isSpeaking
                           ? 'bg-rose-500/15 text-rose-700 dark:text-rose-300 border border-rose-500/30 animate-pulse'
-                          : 'bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300'
+                          : 'bg-slate-100 dark:bg-[#090d19] hover:bg-slate-200 dark:hover:bg-[#131b31] border border-transparent dark:border-indigo-500/15 text-slate-700 dark:text-slate-300'
                       }`}
                       title={isSpeaking ? 'Stop Audio' : 'Listen to interviewer voice'}
                     >
-                      {isSpeaking ? <VolumeX className="w-3.5 h-3.5 text-rose-500" /> : <Volume2 className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" />}
+                      {isSpeaking ? <VolumeX className="w-3.5 h-3.5 text-rose-500" /> : <Volume2 className="w-3.5 h-3.5 text-indigo-600 dark:text-cyan-400" />}
                       <span>{isSpeaking ? 'Stop Voice' : 'Listen to Question'}</span>
                     </button>
                   </div>
@@ -376,9 +376,9 @@ export function InterviewCoach({
                   <h3 className="text-base font-bold text-slate-900 dark:text-slate-100 leading-snug">
                     {activeQuestion.question}
                   </h3>
-                  <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-950/60 border border-slate-200 dark:border-slate-800 text-xs text-slate-600 dark:text-slate-400 space-y-1">
-                    <div className="text-[11px] font-semibold text-slate-800 dark:text-slate-300 flex items-center gap-1.5">
-                      <Lightbulb className="w-3.5 h-3.5 text-amber-500" />
+                  <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-[#090d19]/80 border border-slate-200/80 dark:border-indigo-500/15 text-xs text-slate-600 dark:text-slate-400 space-y-1">
+                    <div className="text-[11px] font-semibold text-slate-800 dark:text-slate-200 flex items-center gap-1.5">
+                      <Lightbulb className="w-3.5 h-3.5 text-amber-400 drop-shadow-[0_0_6px_rgba(251,191,36,0.6)]" />
                       <span>Why Interviewers Ask This:</span>
                     </div>
                     <p className="leading-relaxed">{activeQuestion.contextWhyAsked}</p>
@@ -394,7 +394,7 @@ export function InterviewCoach({
                     <ul className="grid grid-cols-1 md:grid-cols-2 gap-1.5">
                       {activeQuestion.tips.map((t, idx) => (
                         <li key={idx} className="flex items-start gap-1.5 text-slate-600 dark:text-slate-400 text-[11px]">
-                          <CheckCircle2 className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400 shrink-0 mt-0.5" />
+                          <CheckCircle2 className="w-3.5 h-3.5 text-indigo-600 dark:text-cyan-400 shrink-0 mt-0.5" />
                           <span>{t}</span>
                         </li>
                       ))}
@@ -411,10 +411,10 @@ export function InterviewCoach({
                       </label>
                       <button
                         onClick={handleToggleListen}
-                        className={`flex items-center gap-1.5 px-2.5 py-0.5 rounded-md text-[11px] font-semibold transition-all cursor-pointer ${
+                        className={`flex items-center gap-1.5 px-2.5 py-0.5 rounded-lg text-[11px] font-semibold transition-all cursor-pointer ${
                           isListening
                             ? 'bg-rose-600 text-white animate-pulse'
-                            : 'bg-indigo-50 dark:bg-indigo-500/15 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-500/30 hover:bg-indigo-100 dark:hover:bg-indigo-500/25'
+                            : 'bg-indigo-50 dark:bg-indigo-500/15 text-indigo-700 dark:text-cyan-300 border border-indigo-200 dark:border-indigo-500/30 hover:bg-indigo-100 dark:hover:bg-indigo-500/25'
                         }`}
                         title="Dictate response via microphone"
                       >
@@ -433,7 +433,7 @@ export function InterviewCoach({
                     value={userAnswerText}
                     onChange={(e) => setUserAnswerText(e.target.value)}
                     placeholder="Type your response here using the STAR method (Situation, Task, Action, Result)... Mention concrete metrics, technologies, and outcomes."
-                    className="w-full px-3.5 py-2.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl text-xs text-slate-900 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-indigo-500 font-sans leading-relaxed"
+                    className="w-full px-4 py-3 bg-slate-50 dark:bg-[#090d19]/90 border border-slate-200/80 dark:border-indigo-500/20 rounded-2xl text-xs text-slate-900 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-indigo-500 dark:focus:border-indigo-400 font-sans leading-relaxed"
                   />
 
                   <div className="flex items-center justify-between pt-1">
@@ -441,7 +441,7 @@ export function InterviewCoach({
                     {activeQuestion.sampleStarAnswer && (
                       <button
                         onClick={() => setShowSampleAnswer(!showSampleAnswer)}
-                        className="text-xs text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 flex items-center gap-1 cursor-pointer font-medium"
+                        className="text-xs text-indigo-600 dark:text-cyan-400 hover:text-indigo-700 dark:hover:text-cyan-300 flex items-center gap-1 cursor-pointer font-medium"
                       >
                         {showSampleAnswer ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
                         <span>{showSampleAnswer ? 'Hide Sample STAR Answer' : 'View Sample 10/10 Answer'}</span>
@@ -451,7 +451,7 @@ export function InterviewCoach({
                     <button
                       onClick={handleEvaluateAnswer}
                       disabled={isEvaluating || !userAnswerText.trim()}
-                      className="flex items-center gap-2 px-5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs shadow-sm transition-all disabled:opacity-50 ml-auto cursor-pointer"
+                      className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold text-xs shadow-sm dark:shadow-[0_0_15px_rgba(99,102,241,0.4)] transition-all disabled:opacity-50 ml-auto cursor-pointer"
                     >
                       <Sparkles className="w-4 h-4 text-amber-300" />
                       <span>{isEvaluating ? 'Evaluating STAR...' : 'Evaluate My Answer'}</span>
@@ -461,7 +461,7 @@ export function InterviewCoach({
 
                 {/* Sample 10/10 Answer Box */}
                 {showSampleAnswer && activeQuestion.sampleStarAnswer && (
-                  <div className="p-4 rounded-xl bg-indigo-50/70 dark:bg-indigo-950/30 border border-indigo-200 dark:border-indigo-500/30 text-xs space-y-2 animate-in fade-in">
+                  <div className="p-4 rounded-2xl bg-indigo-50/70 dark:bg-[#090d19]/90 border border-indigo-200 dark:border-indigo-500/30 text-xs space-y-2 animate-in fade-in">
                     <span className="font-bold text-indigo-800 dark:text-indigo-300 uppercase text-[10px] tracking-wider block">
                       Sample 10/10 STAR Answer Breakdown:
                     </span>

@@ -68,13 +68,13 @@ export function CompanyResearchWorkspace({ onStartCompanyInterview }: CompanyRes
   return (
     <div className="space-y-6">
       {/* Header Banner */}
-      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="bg-white dark:bg-[#0e1424]/80 border border-slate-200/80 dark:border-indigo-500/20 rounded-3xl p-6 shadow-sm dark:shadow-[0_8px_32px_rgba(0,0,0,0.37)] backdrop-blur-xl flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300 text-xs font-semibold mb-2">
-            <Building2 className="w-3.5 h-3.5" />
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 dark:bg-blue-500/15 text-blue-700 dark:text-cyan-300 text-xs font-semibold mb-2 border border-blue-200 dark:border-cyan-500/30">
+            <Building2 className="w-3.5 h-3.5 text-cyan-400" />
             Company Intel & Interview Prep Packs
           </div>
-          <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+          <h1 className="text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight">
             Company Research Workspace
           </h1>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
@@ -86,7 +86,7 @@ export function CompanyResearchWorkspace({ onStartCompanyInterview }: CompanyRes
           <div className="flex items-center gap-3">
             <button
               onClick={() => onStartCompanyInterview?.(activePack.companyName)}
-              className="px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold flex items-center gap-2 shadow-sm transition-colors"
+              className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white text-xs font-bold flex items-center gap-2 shadow-sm dark:shadow-[0_0_15px_rgba(99,102,241,0.4)] transition-all cursor-pointer"
             >
               <MessageSquare className="w-4 h-4" />
               Practice {activePack.companyName} Mock Round
@@ -103,17 +103,17 @@ export function CompanyResearchWorkspace({ onStartCompanyInterview }: CompanyRes
             <button
               key={p.id}
               onClick={() => setSelectedPackId(p.id)}
-              className={`px-4 py-2.5 rounded-xl text-xs font-semibold transition-all shrink-0 flex items-center gap-2.5 border ${
+              className={`px-4 py-2.5 rounded-2xl text-xs font-semibold transition-all shrink-0 flex items-center gap-2.5 border cursor-pointer backdrop-blur-md ${
                 isSelected
-                  ? 'bg-indigo-600 text-white border-indigo-600 shadow-md'
-                  : 'bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700'
+                  ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white border-transparent shadow-md dark:shadow-[0_0_15px_rgba(99,102,241,0.35)]'
+                  : 'bg-white dark:bg-[#0e1424]/85 text-slate-700 dark:text-slate-300 border-slate-200/80 dark:border-indigo-500/15 hover:border-indigo-400/50 dark:hover:border-indigo-400/40'
               }`}
             >
               <Building2 className="w-4 h-4" />
               <span>{p.companyName}</span>
               <span
-                className={`text-[10px] px-1.5 py-0.5 rounded ${
-                  isSelected ? 'bg-indigo-700 text-white' : 'bg-slate-100 dark:bg-slate-800 text-slate-500'
+                className={`text-[10px] px-2 py-0.5 rounded-md font-mono ${
+                  isSelected ? 'bg-indigo-700/80 text-white' : 'bg-slate-100 dark:bg-[#090d19] text-slate-500 dark:text-slate-400'
                 }`}
               >
                 {p.industry}
@@ -128,7 +128,7 @@ export function CompanyResearchWorkspace({ onStartCompanyInterview }: CompanyRes
           {/* Main Dossier (Left 8 Cols) */}
           <div className="lg:col-span-8 space-y-6">
             {/* Overview Card */}
-            <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm space-y-4">
+            <div className="bg-white dark:bg-[#0e1424]/85 border border-slate-200/80 dark:border-indigo-500/20 rounded-3xl p-6 shadow-sm dark:shadow-[0_8px_32px_rgba(0,0,0,0.37)] backdrop-blur-xl space-y-4">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 dark:border-slate-800 pb-4">
                 <div>
                   <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100">

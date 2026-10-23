@@ -228,7 +228,7 @@ export function JobBoard({
       )}
 
       {/* Top Controls & Metrics */}
-      <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 bg-white dark:bg-slate-900/60 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm dark:shadow-none">
+      <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 bg-white dark:bg-[#0e1424]/80 p-4 rounded-2xl border border-slate-200/80 dark:border-indigo-500/20 backdrop-blur-xl shadow-sm dark:shadow-[0_8px_32px_rgba(0,0,0,0.37)]">
         <div className="flex flex-1 items-center gap-3">
           <div className="relative flex-1 max-w-md">
             <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
@@ -237,7 +237,7 @@ export function JobBoard({
               placeholder="Search roles, companies, tech stack..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl text-xs text-slate-800 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-indigo-500 focus:bg-white dark:focus:bg-slate-900"
+              className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-[#090d19]/90 border border-slate-200/80 dark:border-indigo-500/20 rounded-xl text-xs text-slate-800 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-indigo-500 dark:focus:border-indigo-400 focus:bg-white dark:focus:bg-[#090d19]"
             />
           </div>
 
@@ -245,7 +245,7 @@ export function JobBoard({
             <select
               value={priorityFilter}
               onChange={(e) => setPriorityFilter(e.target.value as any)}
-              className="px-3 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl text-xs text-slate-700 dark:text-slate-300 focus:outline-none focus:border-indigo-500 cursor-pointer"
+              className="px-3 py-2 bg-slate-50 dark:bg-[#090d19]/90 border border-slate-200/80 dark:border-indigo-500/20 rounded-xl text-xs text-slate-700 dark:text-slate-300 focus:outline-none focus:border-indigo-500 dark:focus:border-indigo-400 cursor-pointer"
             >
               <option value="all">All Priorities</option>
               <option value="high">High Priority</option>
@@ -257,11 +257,13 @@ export function JobBoard({
 
         <div className="flex items-center gap-3">
           {/* Toggle View Mode */}
-          <div className="flex bg-slate-100 dark:bg-slate-950 p-1 rounded-xl border border-slate-200 dark:border-slate-800">
+          <div className="flex bg-slate-100 dark:bg-[#090d19]/90 p-1 rounded-xl border border-slate-200/80 dark:border-indigo-500/20">
             <button
               onClick={() => setViewMode('kanban')}
               className={`p-1.5 rounded-lg text-xs font-medium flex items-center gap-1.5 transition-colors cursor-pointer ${
-                viewMode === 'kanban' ? 'bg-indigo-600 text-white shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
+                viewMode === 'kanban'
+                  ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-sm dark:shadow-[0_0_12px_rgba(99,102,241,0.4)]'
+                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
               }`}
             >
               <LayoutGrid className="w-4 h-4" />
@@ -270,7 +272,9 @@ export function JobBoard({
             <button
               onClick={() => setViewMode('table')}
               className={`p-1.5 rounded-lg text-xs font-medium flex items-center gap-1.5 transition-colors cursor-pointer ${
-                viewMode === 'table' ? 'bg-indigo-600 text-white shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
+                viewMode === 'table'
+                  ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-sm dark:shadow-[0_0_12px_rgba(99,102,241,0.4)]'
+                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
               }`}
             >
               <List className="w-4 h-4" />
@@ -280,7 +284,7 @@ export function JobBoard({
 
           <button
             onClick={() => setIsAddModalOpen(true)}
-            className="flex items-center gap-2 px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold shadow-sm transition-all cursor-pointer"
+            className="flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white text-xs font-semibold shadow-sm dark:shadow-[0_0_15px_rgba(99,102,241,0.4)] transition-all cursor-pointer"
           >
             <Plus className="w-4 h-4" />
             <span>Track Opportunity</span>
@@ -302,7 +306,7 @@ export function JobBoard({
             return (
               <div
                 key={col.id}
-                className="bg-slate-100/70 dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800/80 rounded-2xl p-3 space-y-3 min-h-[500px] flex flex-col"
+                className="bg-slate-100/70 dark:bg-[#0c1222]/80 border border-slate-200 dark:border-indigo-500/15 rounded-2xl p-3 space-y-3 min-h-[500px] flex flex-col backdrop-blur-md"
               >
                 {/* Column Header */}
                 <div className="flex items-center justify-between px-2 py-1.5">
@@ -310,7 +314,7 @@ export function JobBoard({
                     <span className={`w-2.5 h-2.5 rounded-full ${col.bg} border ${col.border}`} />
                     <h3 className="text-xs font-bold text-slate-800 dark:text-slate-200">{col.title}</h3>
                   </div>
-                  <span className="text-xs font-mono font-semibold px-2 py-0.5 rounded-md bg-slate-200/80 dark:bg-slate-800 text-slate-600 dark:text-slate-400">
+                  <span className="text-xs font-mono font-semibold px-2 py-0.5 rounded-md bg-slate-200/80 dark:bg-[#090d19] text-slate-600 dark:text-slate-400 border border-transparent dark:border-indigo-500/10">
                     {columnJobs.length}
                   </span>
                 </div>
@@ -320,7 +324,7 @@ export function JobBoard({
                   {columnJobs.map((job) => (
                     <div
                       key={job.id}
-                      className="group bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-indigo-500/50 dark:hover:border-indigo-500/40 rounded-xl p-3.5 shadow-sm hover:shadow-md dark:shadow-none transition-all space-y-2.5 cursor-pointer relative"
+                      className="group bg-white dark:bg-[#0e1424]/90 border border-slate-200/80 dark:border-indigo-500/20 hover:border-indigo-500/50 dark:hover:border-indigo-400/50 rounded-xl p-3.5 shadow-sm hover:shadow-md dark:shadow-[0_4px_20px_rgba(0,0,0,0.3)] dark:hover:shadow-[0_0_20px_rgba(99,102,241,0.2)] transition-all space-y-2.5 cursor-pointer relative backdrop-blur-sm"
                       onClick={() => setSelectedJob(job)}
                     >
                       {/* Company & Priority */}
@@ -330,7 +334,7 @@ export function JobBoard({
                             <Building2 className="w-3 h-3" />
                             {job.company}
                           </div>
-                          <h4 className="text-sm font-bold text-slate-900 dark:text-slate-100 group-hover:text-indigo-600 dark:group-hover:text-indigo-200 transition-colors line-clamp-1">
+                          <h4 className="text-sm font-bold text-slate-900 dark:text-slate-100 group-hover:text-indigo-600 dark:group-hover:text-cyan-300 transition-colors line-clamp-1">
                             {job.title}
                           </h4>
                         </div>

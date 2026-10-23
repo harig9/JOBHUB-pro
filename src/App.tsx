@@ -326,7 +326,14 @@ function MainApp() {
 
   return (
     <NotificationProvider jobs={jobs}>
-      <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 flex flex-col font-sans transition-colors">
+      <div className="min-h-screen bg-slate-50 dark:bg-[#070b14] text-slate-900 dark:text-slate-100 flex flex-col font-sans transition-colors relative overflow-x-hidden">
+        {/* Ambient Cosmic Neon Light Glows (Dark Mode Only) */}
+        <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden hidden dark:block opacity-35" aria-hidden="true">
+          <div className="absolute -top-40 left-1/4 w-[600px] h-[600px] bg-gradient-to-br from-indigo-600/20 via-blue-600/10 to-transparent rounded-full blur-3xl animate-pulse" style={{ animationDuration: '8s' }} />
+          <div className="absolute top-1/3 -right-40 w-[550px] h-[550px] bg-gradient-to-bl from-purple-600/20 via-indigo-600/10 to-transparent rounded-full blur-3xl" />
+          <div className="absolute -bottom-40 left-1/3 w-[600px] h-[600px] bg-gradient-to-tr from-cyan-600/15 via-blue-600/10 to-transparent rounded-full blur-3xl" />
+        </div>
+
         {/* Navigation Header with Global Search */}
         <Navbar
           activeTab={activeTab}

@@ -139,13 +139,13 @@ export function CodingAptitudeLab() {
   return (
     <div className="space-y-6">
       {/* Header bar */}
-      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="bg-white dark:bg-[#0e1424]/80 border border-slate-200/80 dark:border-indigo-500/20 rounded-3xl p-6 shadow-sm dark:shadow-[0_8px_32px_rgba(0,0,0,0.37)] backdrop-blur-xl flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 text-xs font-semibold mb-2">
-            <Code2 className="w-3.5 h-3.5" />
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 dark:bg-emerald-500/15 border border-emerald-200 dark:border-emerald-500/30 text-emerald-700 dark:text-emerald-300 text-xs font-semibold mb-2">
+            <Code2 className="w-3.5 h-3.5 text-emerald-400" />
             Interactive Placement & Campus Prep Lab
           </div>
-          <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+          <h1 className="text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight">
             Coding, SQL & Aptitude Practice Lab
           </h1>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
@@ -154,17 +154,17 @@ export function CodingAptitudeLab() {
         </div>
 
         {/* Live Timer & Stats */}
-        <div className="flex items-center gap-4 bg-slate-50 dark:bg-slate-800/60 p-3 rounded-xl border border-slate-200 dark:border-slate-700">
+        <div className="flex items-center gap-4 bg-slate-50 dark:bg-[#090d19]/90 p-3.5 rounded-2xl border border-slate-200/80 dark:border-indigo-500/20 shadow-xs">
           <div className="flex items-center gap-2">
-            <Clock className="w-4 h-4 text-indigo-600 dark:text-indigo-400 animate-pulse" />
-            <span className="text-xs font-mono font-bold text-slate-700 dark:text-slate-200">
+            <Clock className="w-4 h-4 text-indigo-600 dark:text-cyan-400 animate-pulse" />
+            <span className="text-xs font-mono font-bold text-slate-700 dark:text-cyan-300">
               {formatTime(elapsedSeconds)}
             </span>
           </div>
-          <div className="h-4 w-px bg-slate-300 dark:bg-slate-600" />
-          <div className="text-xs text-slate-500 dark:text-slate-400">
+          <div className="h-4 w-px bg-slate-300 dark:bg-indigo-500/20" />
+          <div className="text-xs text-slate-500 dark:text-slate-400 font-mono">
             Solved:{' '}
-            <span className="font-semibold text-emerald-600 dark:text-emerald-400">
+            <span className="font-bold text-emerald-600 dark:text-emerald-400">
               {Object.values(solvedMap).filter(Boolean).length}
             </span>
             /{questions.length}
@@ -173,10 +173,10 @@ export function CodingAptitudeLab() {
       </div>
 
       {/* Filter Tabs */}
-      <div className="flex flex-wrap items-center justify-between gap-3 bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-800">
+      <div className="flex flex-wrap items-center justify-between gap-3 bg-white dark:bg-[#0e1424]/80 p-4 rounded-2xl border border-slate-200/80 dark:border-indigo-500/20 backdrop-blur-xl shadow-xs">
         <div className="flex flex-wrap items-center gap-1.5">
           <span className="text-xs font-medium text-slate-400 mr-2 flex items-center gap-1">
-            <Filter className="w-3 h-3" /> Category:
+            <Filter className="w-3 h-3 text-cyan-400" /> Category:
           </span>
           {[
             { id: 'all', label: 'All Topics' },
@@ -285,21 +285,21 @@ export function CodingAptitudeLab() {
         {/* Right Active Question & Solver */}
         <div className="lg:col-span-8">
           {activeQuestion ? (
-            <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm space-y-6">
+            <div className="bg-white dark:bg-[#0e1424]/85 border border-slate-200/80 dark:border-indigo-500/20 rounded-3xl p-6 shadow-sm dark:shadow-[0_8px_32px_rgba(0,0,0,0.37)] backdrop-blur-xl space-y-6">
               {/* Question Header */}
-              <div className="border-b border-slate-100 dark:border-slate-800 pb-4">
+              <div className="border-b border-slate-100 dark:border-indigo-500/15 pb-4">
                 <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
                   <div className="flex items-center gap-2">
-                    <span className="text-xs font-semibold text-indigo-600 dark:text-indigo-400 uppercase tracking-wide">
+                    <span className="text-xs font-semibold text-indigo-600 dark:text-cyan-400 uppercase tracking-wide font-mono">
                       {activeQuestion.category} • {activeQuestion.topic}
                     </span>
                     <span
                       className={`text-[10px] font-semibold px-2 py-0.5 rounded capitalize ${
                         activeQuestion.difficulty === 'easy'
-                          ? 'bg-emerald-50 text-emerald-700 dark:bg-emerald-950/50 dark:text-emerald-300'
+                          ? 'bg-emerald-50 text-emerald-700 dark:bg-emerald-950/50 dark:text-emerald-300 border border-emerald-500/30'
                           : activeQuestion.difficulty === 'medium'
-                          ? 'bg-amber-50 text-amber-700 dark:bg-amber-950/50 dark:text-amber-300'
-                          : 'bg-rose-50 text-rose-700 dark:bg-rose-950/50 dark:text-rose-300'
+                          ? 'bg-amber-50 text-amber-700 dark:bg-amber-950/50 dark:text-amber-300 border border-amber-500/30'
+                          : 'bg-rose-50 text-rose-700 dark:bg-rose-950/50 dark:text-rose-300 border border-rose-500/30'
                       }`}
                     >
                       {activeQuestion.difficulty}
@@ -312,7 +312,7 @@ export function CodingAptitudeLab() {
                       {activeQuestion.companyTags.map((tag) => (
                         <span
                           key={tag}
-                          className="text-[11px] font-medium text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded-md"
+                          className="text-[11px] font-medium text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-[#090d19] border border-transparent dark:border-indigo-500/20 px-2 py-0.5 rounded-md font-mono"
                         >
                           {tag}
                         </span>
@@ -321,7 +321,7 @@ export function CodingAptitudeLab() {
                   )}
                 </div>
 
-                <h2 className="text-base font-medium text-slate-900 dark:text-slate-100 whitespace-pre-wrap leading-relaxed">
+                <h2 className="text-base font-semibold text-slate-900 dark:text-slate-100 whitespace-pre-wrap leading-relaxed">
                   {activeQuestion.question}
                 </h2>
               </div>
@@ -329,7 +329,7 @@ export function CodingAptitudeLab() {
               {/* Multiple Choice Options if MCQ */}
               {activeQuestion.options && activeQuestion.options.length > 0 && (
                 <div className="space-y-2.5">
-                  <label className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
+                  <label className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
                     Select Your Answer:
                   </label>
                   <div className="space-y-2">
@@ -339,25 +339,25 @@ export function CodingAptitudeLab() {
                         <button
                           key={oIdx}
                           onClick={() => setSelectedOption(oIdx)}
-                          className={`w-full text-left p-3.5 rounded-xl border text-sm font-medium transition-all flex items-center justify-between ${
+                          className={`w-full text-left p-3.5 rounded-2xl border text-sm font-medium transition-all flex items-center justify-between cursor-pointer ${
                             isSelected
-                              ? 'bg-indigo-50 dark:bg-indigo-950/40 border-indigo-600 dark:border-indigo-500 text-indigo-900 dark:text-indigo-200'
-                              : 'bg-slate-50 dark:bg-slate-800/40 border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300'
+                              ? 'bg-indigo-50/80 dark:bg-[#131b31] border-indigo-600 dark:border-indigo-400 text-indigo-900 dark:text-white dark:shadow-[0_0_15px_rgba(99,102,241,0.25)]'
+                              : 'bg-slate-50 dark:bg-[#090d19]/80 border-slate-200/80 dark:border-indigo-500/15 hover:bg-slate-100 dark:hover:bg-[#11172a] text-slate-700 dark:text-slate-300'
                           }`}
                         >
                           <div className="flex items-center gap-3">
                             <span
-                              className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${
+                              className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold font-mono ${
                                 isSelected
-                                  ? 'bg-indigo-600 text-white'
-                                  : 'bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300'
+                                  ? 'bg-indigo-600 text-white shadow-xs'
+                                  : 'bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-300'
                               }`}
                             >
                               {String.fromCharCode(65 + oIdx)}
                             </span>
                             <span>{opt}</span>
                           </div>
-                          {isSelected && <Check className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />}
+                          {isSelected && <Check className="w-4 h-4 text-indigo-600 dark:text-cyan-400" />}
                         </button>
                       );
                     })}
@@ -369,13 +369,13 @@ export function CodingAptitudeLab() {
               {(activeQuestion.category === 'coding' || activeQuestion.category === 'sql') && (
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
-                    <label className="text-xs font-semibold text-slate-500 uppercase tracking-wider flex items-center gap-2">
-                      <Code2 className="w-4 h-4 text-indigo-500" />
+                    <label className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider flex items-center gap-2">
+                      <Code2 className="w-4 h-4 text-cyan-400" />
                       Solution Editor ({activeQuestion.category === 'sql' ? 'PostgreSQL Dialect' : 'JavaScript / Python'})
                     </label>
                     <button
                       onClick={() => setCodeAnswer(activeQuestion.starterCode || '')}
-                      className="text-xs text-indigo-600 dark:text-indigo-400 hover:underline flex items-center gap-1"
+                      className="text-xs text-indigo-600 dark:text-cyan-400 hover:underline flex items-center gap-1 cursor-pointer"
                     >
                       <RotateCcw className="w-3 h-3" /> Reset Starter Code
                     </button>
@@ -385,12 +385,12 @@ export function CodingAptitudeLab() {
                     value={codeAnswer}
                     onChange={(e) => setCodeAnswer(e.target.value)}
                     placeholder="Write your solution query or algorithm here..."
-                    className="w-full font-mono text-xs p-4 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-900 text-emerald-400 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                    className="w-full font-mono text-xs p-4 rounded-2xl border border-slate-300 dark:border-indigo-500/30 bg-[#060a12] text-emerald-400 dark:text-emerald-300 focus:ring-2 focus:ring-indigo-500 focus:outline-none shadow-[inset_0_2px_10px_rgba(0,0,0,0.6)] leading-relaxed"
                   />
                   {activeQuestion.testCases && activeQuestion.testCases.length > 0 && (
-                    <div className="p-3 rounded-lg bg-slate-100 dark:bg-slate-800 text-xs space-y-1">
+                    <div className="p-3.5 rounded-xl bg-slate-100 dark:bg-[#090d19]/90 border border-transparent dark:border-indigo-500/15 text-xs space-y-1">
                       <span className="font-semibold text-slate-700 dark:text-slate-300">Test Case Expectation:</span>
-                      <div className="font-mono text-[11px] text-slate-600 dark:text-slate-400">
+                      <div className="font-mono text-[11px] text-slate-600 dark:text-cyan-300/90">
                         Input: {activeQuestion.testCases[0].input} → Output: {activeQuestion.testCases[0].expectedOutput}
                       </div>
                     </div>
@@ -399,10 +399,10 @@ export function CodingAptitudeLab() {
               )}
 
               {/* Action Buttons */}
-              <div className="flex items-center justify-between pt-4 border-t border-slate-100 dark:border-slate-800">
+              <div className="flex items-center justify-between pt-4 border-t border-slate-100 dark:border-indigo-500/15">
                 <button
                   onClick={() => setShowExplanation(!showExplanation)}
-                  className="text-xs font-medium text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 flex items-center gap-1"
+                  className="text-xs font-medium text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 flex items-center gap-1 cursor-pointer"
                 >
                   <BookOpen className="w-4 h-4" />
                   {showExplanation ? 'Hide Explanation' : 'View Explanation'}
@@ -411,7 +411,7 @@ export function CodingAptitudeLab() {
                 <button
                   onClick={handleSubmit}
                   disabled={submitting}
-                  className="px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-xs flex items-center gap-2 shadow-sm transition-colors disabled:opacity-50"
+                  className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold text-xs flex items-center gap-2 shadow-sm dark:shadow-[0_0_15px_rgba(99,102,241,0.4)] transition-all disabled:opacity-50 cursor-pointer"
                 >
                   {submitting ? (
                     'Evaluating...'

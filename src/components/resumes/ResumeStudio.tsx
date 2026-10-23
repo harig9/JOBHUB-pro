@@ -365,7 +365,7 @@ export function ResumeStudio({ resumes, initialResumeId, onSelectResumeForATS, o
   return (
     <div className="space-y-6">
       {/* Top Controls Bar */}
-      <div className="no-print bg-white dark:bg-slate-900/60 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-4 shadow-sm dark:shadow-xl">
+      <div className="no-print bg-white dark:bg-[#0e1424]/80 p-4 rounded-3xl border border-slate-200/80 dark:border-indigo-500/20 backdrop-blur-xl flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-4 shadow-sm dark:shadow-[0_8px_32px_rgba(0,0,0,0.37)]">
         {/* Resume Selector & Actions */}
         <div className="flex flex-wrap items-center gap-3">
           <div className="flex items-center gap-2">
@@ -373,7 +373,7 @@ export function ResumeStudio({ resumes, initialResumeId, onSelectResumeForATS, o
             <select
               value={draftResume.id}
               onChange={(e) => setActiveResumeId(e.target.value)}
-              className="px-3 py-1.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl text-xs font-bold text-slate-800 dark:text-slate-200 focus:outline-none focus:border-indigo-500 max-w-[260px] truncate cursor-pointer shadow-sm"
+              className="px-3 py-1.5 bg-slate-50 dark:bg-[#090d19]/90 border border-slate-200/80 dark:border-indigo-500/20 rounded-xl text-xs font-bold text-slate-800 dark:text-slate-200 focus:outline-none focus:border-indigo-500 dark:focus:border-indigo-400 max-w-[260px] truncate cursor-pointer shadow-sm"
             >
               {resumes.map((r) => (
                 <option key={r.id} value={r.id}>
@@ -386,7 +386,7 @@ export function ResumeStudio({ resumes, initialResumeId, onSelectResumeForATS, o
           {!draftResume.isPrimary && (
             <button
               onClick={handleSetPrimary}
-              className="px-2.5 py-1.5 rounded-lg bg-amber-50 dark:bg-slate-800 hover:bg-amber-100 dark:hover:bg-slate-700 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-slate-700 text-xs flex items-center gap-1 transition-colors cursor-pointer font-medium"
+              className="px-2.5 py-1.5 rounded-xl bg-amber-50 dark:bg-[#090d19] hover:bg-amber-100 dark:hover:bg-[#131b31] text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-indigo-500/15 text-xs flex items-center gap-1 transition-colors cursor-pointer font-medium"
               title="Set as Default Master Resume"
             >
               <Star className="w-3.5 h-3.5 fill-amber-500 text-amber-500 dark:fill-amber-300 dark:text-amber-300" />
@@ -396,7 +396,7 @@ export function ResumeStudio({ resumes, initialResumeId, onSelectResumeForATS, o
 
           <button
             onClick={handleDuplicate}
-            className="px-2.5 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 text-xs flex items-center gap-1 transition-colors cursor-pointer font-medium"
+            className="px-2.5 py-1.5 rounded-xl bg-slate-100 dark:bg-[#090d19] hover:bg-slate-200 dark:hover:bg-[#131b31] text-slate-700 dark:text-slate-300 border border-slate-200/80 dark:border-indigo-500/15 text-xs flex items-center gap-1 transition-colors cursor-pointer font-medium"
           >
             <Copy className="w-3.5 h-3.5" />
             <span>Duplicate</span>
@@ -404,7 +404,7 @@ export function ResumeStudio({ resumes, initialResumeId, onSelectResumeForATS, o
 
           <button
             onClick={() => setIsImportModalOpen(true)}
-            className="px-2.5 py-1.5 rounded-lg bg-indigo-50 dark:bg-indigo-500/10 hover:bg-indigo-100 dark:hover:bg-indigo-500/20 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-500/30 text-xs flex items-center gap-1 transition-colors cursor-pointer font-medium"
+            className="px-2.5 py-1.5 rounded-xl bg-indigo-50 dark:bg-indigo-500/15 hover:bg-indigo-100 dark:hover:bg-indigo-500/25 text-indigo-700 dark:text-cyan-300 border border-indigo-200 dark:border-indigo-500/30 text-xs flex items-center gap-1 transition-colors cursor-pointer font-medium"
           >
             <Upload className="w-3.5 h-3.5" />
             <span>Import Text / DOCX</span>
@@ -413,14 +413,14 @@ export function ResumeStudio({ resumes, initialResumeId, onSelectResumeForATS, o
 
         {/* Template & Export Buttons */}
         <div className="flex flex-wrap items-center gap-2.5">
-          <div className="flex items-center gap-1.5 bg-slate-100 dark:bg-slate-950 p-1 rounded-xl border border-slate-200 dark:border-slate-800">
+          <div className="flex items-center gap-1.5 bg-slate-100 dark:bg-[#090d19]/90 p-1 rounded-xl border border-slate-200/80 dark:border-indigo-500/20">
             <span className="text-[10px] text-slate-500 dark:text-slate-400 px-1 font-semibold uppercase">Style:</span>
             {(['modern-clean', 'executive-serif', 'tech-minimal', 'compact-ats'] as ResumeTemplateId[]).map((tmpl) => (
               <button
                 key={tmpl}
                 onClick={() => setPreviewTemplate(tmpl)}
                 className={`px-2 py-1 rounded-lg text-[11px] font-medium transition-colors cursor-pointer ${
-                  previewTemplate === tmpl ? 'bg-indigo-600 text-white font-semibold shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
+                  previewTemplate === tmpl ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold shadow-sm dark:shadow-[0_0_10px_rgba(99,102,241,0.4)]' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
                 }`}
               >
                 {tmpl === 'modern-clean'
@@ -436,9 +436,9 @@ export function ResumeStudio({ resumes, initialResumeId, onSelectResumeForATS, o
 
           <button
             onClick={() => onSelectResumeForATS(draftResume)}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-violet-600 hover:bg-violet-500 text-white text-xs font-semibold shadow-sm transition-all cursor-pointer"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white text-xs font-semibold shadow-sm dark:shadow-[0_0_12px_rgba(168,85,247,0.35)] transition-all cursor-pointer"
           >
-            <Sparkles className="w-3.5 h-3.5" />
+            <Sparkles className="w-3.5 h-3.5 text-cyan-300" />
             <span>Run ATS Optimizer</span>
           </button>
 
@@ -446,7 +446,7 @@ export function ResumeStudio({ resumes, initialResumeId, onSelectResumeForATS, o
           <button
             onClick={handleExportPdf}
             disabled={isExportingPdf}
-            className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold shadow-md hover:shadow-indigo-500/20 transition-all cursor-pointer disabled:opacity-50"
+            className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white text-xs font-bold shadow-md dark:shadow-[0_0_15px_rgba(99,102,241,0.4)] transition-all cursor-pointer disabled:opacity-50"
             title="Download ATS-optimized searchable vector PDF for external job applications"
           >
             <FileDown className="w-3.5 h-3.5 text-indigo-100" />
@@ -457,25 +457,25 @@ export function ResumeStudio({ resumes, initialResumeId, onSelectResumeForATS, o
           <button
             onClick={handleSaveToDrive}
             disabled={isSavingToDrive}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-blue-50 dark:bg-blue-950/60 hover:bg-blue-100 dark:hover:bg-blue-900/60 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-800 text-xs font-semibold shadow-sm transition-all cursor-pointer disabled:opacity-50"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-blue-50 dark:bg-[#090d19] hover:bg-blue-100 dark:hover:bg-[#131b31] text-blue-700 dark:text-cyan-300 border border-blue-200 dark:border-indigo-500/20 text-xs font-semibold shadow-sm transition-all cursor-pointer disabled:opacity-50"
             title="Upload ATS-optimized PDF to 'JobHub Pro Career Suite' folder in Google Drive"
           >
-            <HardDrive className={`w-3.5 h-3.5 text-blue-600 dark:text-blue-400 ${isSavingToDrive ? 'animate-spin' : ''}`} />
+            <HardDrive className={`w-3.5 h-3.5 text-blue-600 dark:text-cyan-400 ${isSavingToDrive ? 'animate-spin' : ''}`} />
             <span>{isSavingToDrive ? 'Saving...' : 'Save to Drive'}</span>
           </button>
 
           <button
             onClick={handlePrint}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 text-xs font-medium border border-slate-200 dark:border-slate-700 transition-colors shadow-sm cursor-pointer"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white dark:bg-[#090d19] hover:bg-slate-100 dark:hover:bg-[#131b31] text-slate-700 dark:text-slate-200 text-xs font-medium border border-slate-200/80 dark:border-indigo-500/15 transition-colors shadow-sm cursor-pointer"
             title="Clean ATS-Compliant PDF via Print Engine"
           >
-            <Printer className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" />
+            <Printer className="w-3.5 h-3.5 text-indigo-600 dark:text-cyan-400" />
             <span>PDF Print</span>
           </button>
 
           <button
             onClick={handleExportDocx}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 text-xs font-medium border border-slate-200 dark:border-slate-700 transition-colors shadow-sm cursor-pointer"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white dark:bg-[#090d19] hover:bg-slate-100 dark:hover:bg-[#131b31] text-slate-700 dark:text-slate-200 text-xs font-medium border border-slate-200/80 dark:border-indigo-500/15 transition-colors shadow-sm cursor-pointer"
             title="Download formatted DOC file"
           >
             <Download className="w-3.5 h-3.5" />
@@ -485,7 +485,7 @@ export function ResumeStudio({ resumes, initialResumeId, onSelectResumeForATS, o
           <button
             onClick={handleSaveDraft}
             disabled={saving}
-            className="flex items-center gap-1.5 px-4 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold shadow-sm transition-all disabled:opacity-50 cursor-pointer"
+            className="flex items-center gap-1.5 px-4 py-1.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white text-xs font-bold shadow-sm dark:shadow-[0_0_12px_rgba(52,211,153,0.3)] transition-all disabled:opacity-50 cursor-pointer"
           >
             <CheckCircle2 className="w-4 h-4" />
             <span>{saving ? 'Saving...' : 'Save Changes'}</span>
@@ -498,7 +498,7 @@ export function ResumeStudio({ resumes, initialResumeId, onSelectResumeForATS, o
         {/* Editor Column */}
         <div className="no-print lg:col-span-5 space-y-4">
           {/* Section Navigation Tabs */}
-          <div className="flex bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-1 rounded-xl overflow-x-auto gap-1">
+          <div className="flex bg-slate-100 dark:bg-[#090d19]/90 border border-slate-200/80 dark:border-indigo-500/20 p-1 rounded-2xl overflow-x-auto gap-1">
             {[
               { id: 'experience', label: 'Work Experience' },
               { id: 'summary', label: 'Summary' },
@@ -510,8 +510,10 @@ export function ResumeStudio({ resumes, initialResumeId, onSelectResumeForATS, o
               <button
                 key={tab.id}
                 onClick={() => setActiveEditorTab(tab.id as any)}
-                className={`px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-colors cursor-pointer ${
-                  activeEditorTab === tab.id ? 'bg-indigo-600 text-white font-semibold shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
+                className={`px-3 py-1.5 rounded-xl text-xs font-medium whitespace-nowrap transition-colors cursor-pointer ${
+                  activeEditorTab === tab.id
+                    ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold shadow-sm dark:shadow-[0_0_10px_rgba(99,102,241,0.4)]'
+                    : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
                 }`}
               >
                 {tab.label}

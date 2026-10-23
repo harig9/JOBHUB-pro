@@ -101,13 +101,13 @@ export function CareerDocumentVault() {
   return (
     <div className="space-y-6">
       {/* Top Banner */}
-      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="bg-white dark:bg-[#0e1424]/80 border border-slate-200/80 dark:border-indigo-500/20 rounded-3xl p-6 shadow-sm dark:shadow-[0_8px_32px_rgba(0,0,0,0.37)] backdrop-blur-xl flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50 dark:bg-indigo-950/40 text-indigo-700 dark:text-indigo-300 text-xs font-semibold mb-2">
-            <ShieldCheck className="w-3.5 h-3.5" />
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50 dark:bg-indigo-500/15 text-indigo-700 dark:text-cyan-300 text-xs font-semibold mb-2 border border-indigo-200 dark:border-indigo-500/30">
+            <ShieldCheck className="w-3.5 h-3.5 text-cyan-400" />
             Verified Credential & Document Vault
           </div>
-          <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+          <h1 className="text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight">
             Career Document Vault
           </h1>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
@@ -117,7 +117,7 @@ export function CareerDocumentVault() {
 
         <button
           onClick={() => setIsAddModalOpen(true)}
-          className="px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold flex items-center gap-2 shadow-sm transition-colors self-start md:self-auto"
+          className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white text-xs font-bold flex items-center gap-2 shadow-sm dark:shadow-[0_0_15px_rgba(99,102,241,0.4)] transition-all self-start md:self-auto cursor-pointer"
         >
           <Plus className="w-4 h-4" />
           Catalog New Document
@@ -125,19 +125,19 @@ export function CareerDocumentVault() {
       </div>
 
       {/* Filter and Search Bar */}
-      <div className="bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-3">
+      <div className="bg-white dark:bg-[#0e1424]/80 p-4 rounded-2xl border border-slate-200/80 dark:border-indigo-500/20 backdrop-blur-xl flex flex-col sm:flex-row items-center justify-between gap-3 shadow-xs">
         <div className="flex flex-wrap items-center gap-1.5 w-full sm:w-auto">
           <span className="text-xs font-medium text-slate-400 mr-1 flex items-center gap-1">
-            <Filter className="w-3 h-3" /> Category:
+            <Filter className="w-3 h-3 text-cyan-400" /> Category:
           </span>
           {['all', 'Resume', 'Certificate', 'Offer Letter', 'Project Evidence', 'Transcript'].map((cat) => (
             <button
               key={cat}
               onClick={() => setSelectedCategory(cat)}
-              className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
+              className={`px-3 py-1.5 rounded-xl text-xs font-medium transition-all cursor-pointer ${
                 selectedCategory === cat
-                  ? 'bg-indigo-600 text-white'
-                  : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700'
+                  ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold shadow-xs dark:shadow-[0_0_10px_rgba(99,102,241,0.4)]'
+                  : 'bg-slate-100 dark:bg-[#090d19] text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-[#131b31]'
               }`}
             >
               {cat === 'all' ? 'All Docs' : cat}
@@ -152,7 +152,7 @@ export function CareerDocumentVault() {
             placeholder="Search documents or notes..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-9 pr-3 py-1.5 text-xs rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+            className="w-full pl-9 pr-3 py-1.5 text-xs rounded-xl border border-slate-200/80 dark:border-indigo-500/20 bg-slate-50 dark:bg-[#090d19]/90 text-slate-800 dark:text-slate-200 focus:outline-none focus:border-indigo-500 dark:focus:border-indigo-400"
           />
         </div>
       </div>
@@ -164,18 +164,18 @@ export function CareerDocumentVault() {
             Loading your verified documents...
           </div>
         ) : filteredDocs.length === 0 ? (
-          <div className="col-span-full py-12 text-center text-slate-400 text-xs bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800">
+          <div className="col-span-full py-12 text-center text-slate-400 text-xs bg-white dark:bg-[#0e1424]/80 rounded-3xl border border-slate-200/80 dark:border-indigo-500/20 backdrop-blur-xl">
             No documents found. Click "Catalog New Document" to add verified records.
           </div>
         ) : (
           filteredDocs.map((doc) => (
             <div
               key={doc.id}
-              className="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm hover:border-indigo-400 dark:hover:border-indigo-600 transition-all flex flex-col justify-between"
+              className="p-5 rounded-3xl bg-white dark:bg-[#0e1424]/85 border border-slate-200/80 dark:border-indigo-500/15 shadow-sm hover:border-indigo-400 dark:hover:border-indigo-400/50 dark:hover:shadow-[0_0_20px_rgba(99,102,241,0.2)] transition-all flex flex-col justify-between backdrop-blur-md"
             >
               <div>
                 <div className="flex items-start justify-between gap-2 mb-3">
-                  <div className="p-2.5 rounded-xl bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400">
+                  <div className="p-2.5 rounded-xl bg-indigo-50 dark:bg-indigo-500/15 text-indigo-600 dark:text-cyan-400 border border-transparent dark:border-indigo-500/20">
                     <FileText className="w-5 h-5" />
                   </div>
                   {doc.verified && (

@@ -132,7 +132,7 @@ export function Navbar({
   ];
 
   return (
-    <header className="sticky top-0 z-40 bg-white/90 dark:bg-slate-950/90 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 transition-colors">
+    <header className="sticky top-0 z-40 bg-white/85 dark:bg-[#0c1222]/85 backdrop-blur-xl border-b border-slate-200/80 dark:border-indigo-500/15 dark:shadow-[0_4px_30px_rgba(0,0,0,0.5)] transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 gap-3 sm:gap-4">
           {/* Brand */}
@@ -141,7 +141,7 @@ export function Navbar({
             className="flex items-center gap-3 shrink-0 cursor-pointer group"
             title="JobHub Pro — AI Career Suite"
           >
-            <div className="relative w-10 h-10 rounded-xl overflow-hidden bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm flex items-center justify-center shrink-0 p-1 group-hover:border-indigo-400 dark:group-hover:border-indigo-500 transition-colors">
+            <div className="relative w-10 h-10 rounded-xl overflow-hidden bg-white dark:bg-[#0f172a] border border-slate-200 dark:border-indigo-500/25 shadow-sm dark:shadow-[0_0_15px_rgba(99,102,241,0.2)] flex items-center justify-center shrink-0 p-1 group-hover:border-indigo-400 dark:group-hover:border-indigo-400 transition-all">
               <img
                 src="/jobhub-logo.png"
                 alt="JobHub Pro Official Brand Logo"
@@ -154,7 +154,7 @@ export function Navbar({
                 <span className="font-bold text-base tracking-tight text-slate-900 dark:text-white">
                   JobHub Pro
                 </span>
-                <span className="text-[10px] font-semibold uppercase tracking-wider text-indigo-700 dark:text-indigo-300 bg-indigo-50 dark:bg-indigo-950/60 px-2 py-0.5 rounded-full border border-indigo-200/60 dark:border-indigo-800/60 hidden sm:inline">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-indigo-700 dark:text-cyan-300 bg-indigo-50 dark:bg-indigo-950/60 px-2 py-0.5 rounded-full border border-indigo-200/60 dark:border-cyan-500/30 hidden sm:inline shadow-2xs dark:shadow-[0_0_10px_rgba(6,182,212,0.15)]">
                   AI Career Suite
                 </span>
               </div>
@@ -272,12 +272,12 @@ export function Navbar({
             {/* Dark Mode Toggle Button */}
             <button
               onClick={toggleTheme}
-              title={`Switch to ${resolvedTheme === 'dark' ? 'Light' : 'Dark'} mode`}
-              aria-label="Toggle theme"
-              className="p-2 rounded-lg text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-900 border border-slate-200 dark:border-slate-800 transition-colors cursor-pointer"
+              title={`Switch to ${resolvedTheme === 'dark' ? 'Light Mode' : 'Dark Mode'}`}
+              aria-label="Toggle light/dark theme"
+              className="p-2 rounded-xl text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white bg-slate-100 dark:bg-[#0f172a] hover:bg-slate-200 dark:hover:bg-indigo-950/40 border border-slate-200 dark:border-indigo-500/25 transition-all cursor-pointer shadow-xs dark:shadow-[0_0_12px_rgba(99,102,241,0.2)]"
             >
               {resolvedTheme === 'dark' ? (
-                <Sun className="w-4 h-4 text-amber-400" />
+                <Sun className="w-4 h-4 text-amber-400 drop-shadow-[0_0_6px_rgba(251,191,36,0.6)]" />
               ) : (
                 <Moon className="w-4 h-4 text-indigo-600" />
               )}
@@ -288,7 +288,7 @@ export function Navbar({
               <button
                 type="button"
                 onClick={() => openAuthModal('login')}
-                className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-500 hover:to-indigo-600 text-white font-semibold text-xs shadow-sm transition-all cursor-pointer shrink-0"
+                className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white font-semibold text-xs shadow-md dark:shadow-[0_0_15px_rgba(99,102,241,0.3)] transition-all cursor-pointer shrink-0"
               >
                 <LogIn className="w-3.5 h-3.5" />
                 <span>Sign In</span>
@@ -299,9 +299,9 @@ export function Navbar({
             <button
               onClick={onOpenProfileModal}
               title="View Account & Security Settings"
-              className="flex items-center gap-2.5 p-1 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-900 border border-slate-200 dark:border-slate-800 transition-colors text-left cursor-pointer"
+              className="flex items-center gap-2.5 p-1 rounded-xl hover:bg-slate-100 dark:hover:bg-indigo-950/30 border border-slate-200 dark:border-indigo-500/20 transition-colors text-left cursor-pointer"
             >
-              <div className="relative w-8 h-8 rounded-lg bg-indigo-600 text-white font-bold text-xs flex items-center justify-center shrink-0">
+              <div className="relative w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-600 to-purple-600 text-white font-bold text-xs flex items-center justify-center shrink-0 shadow-xs">
                 {user?.fullName
                   ? user.fullName
                       .split(' ')
@@ -310,7 +310,7 @@ export function Navbar({
                       .toUpperCase()
                   : 'AM'}
                 {currentUser && (
-                  <span className="absolute -top-1 -right-1 w-2.5 h-2.5 rounded-full bg-emerald-500 ring-2 ring-white dark:ring-slate-950" />
+                  <span className="absolute -top-1 -right-1 w-2.5 h-2.5 rounded-full bg-emerald-400 ring-2 ring-white dark:ring-[#0c1222] animate-pulse" />
                 )}
               </div>
               <div className="hidden md:block pr-1.5">
@@ -326,7 +326,7 @@ export function Navbar({
         </div>
 
         {/* Tab Navigation */}
-        <nav className="flex space-x-1 overflow-x-auto py-2 border-t border-slate-200 dark:border-slate-800/80 scrollbar-none">
+        <nav className="flex space-x-1.5 overflow-x-auto py-2.5 border-t border-slate-200/80 dark:border-indigo-500/15 scrollbar-none">
           {tabs.map((tab) => {
             const Icon = tab.icon;
             const isActive = activeTab === tab.id;
@@ -334,10 +334,10 @@ export function Navbar({
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id as ActiveTab)}
-                className={`relative flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-medium whitespace-nowrap transition-colors cursor-pointer ${
+                className={`relative flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-medium whitespace-nowrap transition-all duration-200 cursor-pointer ${
                   isActive
-                    ? 'bg-indigo-600 text-white font-semibold shadow-sm'
-                    : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-900'
+                    ? 'bg-indigo-600 dark:bg-gradient-to-r dark:from-blue-600 dark:via-indigo-600 dark:to-purple-600 text-white font-semibold shadow-sm dark:shadow-[0_0_20px_rgba(99,102,241,0.35)] dark:border dark:border-indigo-400/40'
+                    : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-[#11182c]/80 dark:hover:text-indigo-300'
                 }`}
               >
                 <Icon className={`w-4 h-4 ${isActive ? 'text-white' : 'text-slate-500 dark:text-slate-400'}`} />

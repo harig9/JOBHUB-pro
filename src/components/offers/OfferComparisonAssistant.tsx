@@ -97,13 +97,13 @@ export function OfferComparisonAssistant() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="bg-white dark:bg-[#0e1424]/80 border border-slate-200/80 dark:border-indigo-500/20 rounded-3xl p-6 shadow-sm dark:shadow-[0_8px_32px_rgba(0,0,0,0.37)] backdrop-blur-xl flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 text-xs font-semibold mb-2">
-            <Scale className="w-3.5 h-3.5" />
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 dark:bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 text-xs font-semibold mb-2 border border-emerald-200 dark:border-emerald-500/30">
+            <Scale className="w-3.5 h-3.5 text-emerald-400" />
             Indian CTC & Offer Evaluation Suite
           </div>
-          <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+          <h1 className="text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight">
             Offer Decision Assistant & In-Hand Calculator
           </h1>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
@@ -113,7 +113,7 @@ export function OfferComparisonAssistant() {
 
         <button
           onClick={() => setIsModalOpen(true)}
-          className="px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold flex items-center gap-2 shadow-sm transition-colors self-start md:self-auto"
+          className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white text-xs font-bold flex items-center gap-2 shadow-sm dark:shadow-[0_0_15px_rgba(99,102,241,0.4)] transition-all self-start md:self-auto cursor-pointer"
         >
           <Plus className="w-4 h-4" />
           Add Job Offer
@@ -127,7 +127,7 @@ export function OfferComparisonAssistant() {
             Evaluating offer matrix...
           </div>
         ) : offers.length === 0 ? (
-          <div className="col-span-full py-12 text-center text-slate-400 text-xs bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800">
+          <div className="col-span-full py-12 text-center text-slate-400 text-xs bg-white dark:bg-[#0e1424]/80 rounded-3xl border border-slate-200/80 dark:border-indigo-500/20 backdrop-blur-xl">
             No job offers cataloged yet. Add your campus placement or off-campus offer letters to calculate real in-hand pay.
           </div>
         ) : (
@@ -138,29 +138,29 @@ export function OfferComparisonAssistant() {
             return (
               <div
                 key={offer.id}
-                className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm flex flex-col justify-between hover:border-slate-300 transition-all space-y-4"
+                className="bg-white dark:bg-[#0e1424]/85 border border-slate-200/80 dark:border-indigo-500/15 rounded-3xl p-6 shadow-sm dark:shadow-[0_8px_32px_rgba(0,0,0,0.37)] flex flex-col justify-between hover:border-indigo-400/50 dark:hover:border-indigo-400/50 dark:hover:shadow-[0_0_20px_rgba(99,102,241,0.2)] transition-all space-y-4 backdrop-blur-md"
               >
                 <div>
                   {/* Top status */}
                   <div className="flex items-start justify-between gap-2 mb-3">
                     <div>
-                      <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 font-mono">
                         {offer.location} • {offer.workMode}
                       </span>
-                      <h3 className="text-base font-bold text-slate-900 dark:text-slate-100 mt-0.5">
+                      <h3 className="text-base font-extrabold text-slate-900 dark:text-white mt-0.5">
                         {offer.companyName}
                       </h3>
-                      <p className="text-xs text-indigo-600 dark:text-indigo-400 font-semibold">
+                      <p className="text-xs text-indigo-600 dark:text-cyan-400 font-semibold font-mono">
                         {offer.roleTitle}
                       </p>
                     </div>
 
                     <span
-                      className={`text-[10px] font-semibold px-2 py-0.5 rounded-full capitalize ${
+                      className={`text-[10px] font-semibold px-2 py-0.5 rounded-full capitalize font-mono ${
                         offer.decisionStatus === 'accepted'
-                          ? 'bg-emerald-50 text-emerald-700 dark:bg-emerald-950/50 dark:text-emerald-300'
+                          ? 'bg-emerald-50 text-emerald-700 dark:bg-emerald-950/50 dark:text-emerald-300 border border-emerald-500/30'
                           : offer.decisionStatus === 'considering'
-                          ? 'bg-blue-50 text-blue-700 dark:bg-blue-950/50 dark:text-blue-300'
+                          ? 'bg-blue-50 text-blue-700 dark:bg-blue-950/50 dark:text-cyan-300 border border-cyan-500/30'
                           : 'bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300'
                       }`}
                     >
@@ -169,10 +169,10 @@ export function OfferComparisonAssistant() {
                   </div>
 
                   {/* CTC Breakdown Box */}
-                  <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700 space-y-3">
+                  <div className="p-4 rounded-2xl bg-slate-50 dark:bg-[#090d19]/80 border border-slate-200/80 dark:border-indigo-500/15 space-y-3">
                     <div className="flex items-center justify-between">
-                      <span className="text-xs text-slate-500">Total CTC:</span>
-                      <span className="text-sm font-bold text-slate-900 dark:text-slate-100">
+                      <span className="text-xs text-slate-500 dark:text-slate-400">Total CTC:</span>
+                      <span className="text-sm font-black font-mono text-slate-900 dark:text-white">
                         ₹{totalCtc.toFixed(1)} LPA
                       </span>
                     </div>

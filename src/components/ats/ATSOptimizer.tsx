@@ -221,7 +221,7 @@ export function ATSOptimizer({
       </div>
 
       {/* Target Selector Form */}
-      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 space-y-4 shadow-sm dark:shadow-xl">
+      <div className="bg-white dark:bg-[#0e1424]/80 border border-slate-200/80 dark:border-indigo-500/20 backdrop-blur-xl rounded-2xl p-5 space-y-4 shadow-sm dark:shadow-[0_8px_32px_rgba(0,0,0,0.37)]">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5">
@@ -230,7 +230,7 @@ export function ATSOptimizer({
             <select
               value={selectedResumeId}
               onChange={(e) => setSelectedResumeId(e.target.value)}
-              className="w-full px-3.5 py-2.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl text-xs font-semibold text-slate-900 dark:text-slate-100 focus:outline-none focus:border-indigo-500 cursor-pointer"
+              className="w-full px-3.5 py-2.5 bg-slate-50 dark:bg-[#090d19]/90 border border-slate-200/80 dark:border-indigo-500/20 rounded-xl text-xs font-semibold text-slate-900 dark:text-slate-100 focus:outline-none focus:border-indigo-500 dark:focus:border-indigo-400 cursor-pointer"
             >
               {resumes.map((r) => (
                 <option key={r.id} value={r.id}>
@@ -247,7 +247,7 @@ export function ATSOptimizer({
             <select
               value={selectedJobId}
               onChange={(e) => handleJobSelectChange(e.target.value)}
-              className="w-full px-3.5 py-2.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl text-xs font-semibold text-slate-900 dark:text-slate-100 focus:outline-none focus:border-indigo-500 cursor-pointer"
+              className="w-full px-3.5 py-2.5 bg-slate-50 dark:bg-[#090d19]/90 border border-slate-200/80 dark:border-indigo-500/20 rounded-xl text-xs font-semibold text-slate-900 dark:text-slate-100 focus:outline-none focus:border-indigo-500 dark:focus:border-indigo-400 cursor-pointer"
             >
               {jobs.map((j) => (
                 <option key={j.id} value={j.id}>
@@ -265,7 +265,7 @@ export function ATSOptimizer({
             <label className="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
               Target Job Description
             </label>
-            <span className="text-[11px] text-slate-500 dark:text-slate-400 font-mono">
+            <span className="text-[11px] text-slate-500 dark:text-indigo-400/90 font-mono">
               Role: {customJobTitle} • {customCompany}
             </span>
           </div>
@@ -273,16 +273,16 @@ export function ATSOptimizer({
             rows={5}
             value={customJobDescription}
             onChange={(e) => setCustomJobDescription(e.target.value)}
-            className="w-full px-3.5 py-2.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl text-xs text-slate-900 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-indigo-500 font-sans leading-relaxed"
+            className="w-full px-3.5 py-2.5 bg-slate-50 dark:bg-[#090d19]/90 border border-slate-200/80 dark:border-indigo-500/20 rounded-xl text-xs text-slate-900 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-indigo-500 dark:focus:border-indigo-400 font-sans leading-relaxed"
             placeholder="Paste target job requirements, qualifications, and description here..."
           />
         </div>
 
         {/* Action Buttons */}
-        <div className="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-slate-100 dark:border-slate-800/80">
+        <div className="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-slate-100 dark:border-indigo-500/15">
           <div className="text-xs text-slate-500 dark:text-slate-400 flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-emerald-500" />
-            <span>AI Model: <strong className="font-mono">gemini-3.8-flash</strong></span>
+            <span className="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.6)]" />
+            <span>AI Engine: <strong className="font-mono text-slate-800 dark:text-cyan-400">gemini-3.8-flash</strong></span>
           </div>
 
           <div className="flex items-center gap-3">
@@ -348,10 +348,10 @@ export function ATSOptimizer({
           {/* Left Column: Breakdown & Recommendations */}
           <div className="lg:col-span-7 space-y-6">
             {/* Breakdown Bars */}
-            <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 space-y-4 shadow-sm dark:shadow-xl">
+            <div className="bg-white dark:bg-[#0e1424]/80 border border-slate-200/80 dark:border-indigo-500/20 backdrop-blur-xl rounded-2xl p-5 space-y-4 shadow-sm dark:shadow-[0_8px_32px_rgba(0,0,0,0.37)]">
               <h3 className="text-xs font-bold text-slate-900 dark:text-slate-100 uppercase tracking-wider flex items-center justify-between">
                 <span>ATS Scoring Dimensions</span>
-                <span className="text-[11px] font-mono text-indigo-600 dark:text-indigo-400 font-semibold tabular-nums">
+                <span className="text-[11px] font-mono text-indigo-600 dark:text-cyan-400 font-semibold tabular-nums">
                   Overall: {scanResult.overallScore}/100 ({scanResult.matchRating})
                 </span>
               </h3>
@@ -364,9 +364,9 @@ export function ATSOptimizer({
                       {scanResult.breakdown.hardSkillsScore}%
                     </span>
                   </div>
-                  <div className="w-full h-2 bg-slate-100 dark:bg-slate-950 rounded-full overflow-hidden">
+                  <div className="w-full h-2 bg-slate-100 dark:bg-[#090d19] rounded-full overflow-hidden border border-transparent dark:border-indigo-500/10">
                     <div
-                      className="h-full bg-indigo-600 dark:bg-indigo-500 rounded-full transition-all duration-500"
+                      className="h-full bg-gradient-to-r from-indigo-500 to-purple-600 dark:from-indigo-400 dark:to-purple-500 dark:shadow-[0_0_10px_rgba(129,140,248,0.5)] rounded-full transition-all duration-500"
                       style={{ width: `${scanResult.breakdown.hardSkillsScore}%` }}
                     />
                   </div>
@@ -379,9 +379,9 @@ export function ATSOptimizer({
                       {scanResult.breakdown.experienceRelevanceScore}%
                     </span>
                   </div>
-                  <div className="w-full h-2 bg-slate-100 dark:bg-slate-950 rounded-full overflow-hidden">
+                  <div className="w-full h-2 bg-slate-100 dark:bg-[#090d19] rounded-full overflow-hidden border border-transparent dark:border-indigo-500/10">
                     <div
-                      className="h-full bg-sky-500 rounded-full transition-all duration-500"
+                      className="h-full bg-gradient-to-r from-sky-500 to-blue-500 dark:from-sky-400 dark:to-cyan-400 dark:shadow-[0_0_10px_rgba(56,189,248,0.5)] rounded-full transition-all duration-500"
                       style={{ width: `${scanResult.breakdown.experienceRelevanceScore}%` }}
                     />
                   </div>
@@ -394,9 +394,9 @@ export function ATSOptimizer({
                       {scanResult.breakdown.quantifiableMetricsScore}%
                     </span>
                   </div>
-                  <div className="w-full h-2 bg-slate-100 dark:bg-slate-950 rounded-full overflow-hidden">
+                  <div className="w-full h-2 bg-slate-100 dark:bg-[#090d19] rounded-full overflow-hidden border border-transparent dark:border-indigo-500/10">
                     <div
-                      className="h-full bg-amber-500 rounded-full transition-all duration-500"
+                      className="h-full bg-gradient-to-r from-amber-500 to-yellow-500 dark:from-amber-400 dark:to-amber-300 dark:shadow-[0_0_10px_rgba(251,191,36,0.5)] rounded-full transition-all duration-500"
                       style={{ width: `${scanResult.breakdown.quantifiableMetricsScore}%` }}
                     />
                   </div>
@@ -409,9 +409,9 @@ export function ATSOptimizer({
                       {scanResult.breakdown.formattingScore}%
                     </span>
                   </div>
-                  <div className="w-full h-2 bg-slate-100 dark:bg-slate-950 rounded-full overflow-hidden">
+                  <div className="w-full h-2 bg-slate-100 dark:bg-[#090d19] rounded-full overflow-hidden border border-transparent dark:border-indigo-500/10">
                     <div
-                      className="h-full bg-emerald-500 rounded-full transition-all duration-500"
+                      className="h-full bg-gradient-to-r from-emerald-500 to-teal-500 dark:from-emerald-400 dark:to-teal-300 dark:shadow-[0_0_10px_rgba(52,211,153,0.5)] rounded-full transition-all duration-500"
                       style={{ width: `${scanResult.breakdown.formattingScore}%` }}
                     />
                   </div>
@@ -420,7 +420,7 @@ export function ATSOptimizer({
             </div>
 
             {/* Actionable Recommendations */}
-            <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 space-y-4 shadow-sm dark:shadow-xl">
+            <div className="bg-white dark:bg-[#0e1424]/80 border border-slate-200/80 dark:border-indigo-500/20 backdrop-blur-xl rounded-2xl p-5 space-y-4 shadow-sm dark:shadow-[0_8px_32px_rgba(0,0,0,0.37)]">
               <h3 className="text-xs font-bold text-slate-900 dark:text-slate-100 uppercase tracking-wider">
                 Actionable Optimization Recommendations
               </h3>
@@ -429,17 +429,17 @@ export function ATSOptimizer({
                 {scanResult.actionableRecommendations.map((rec, idx) => (
                   <div
                     key={idx}
-                    className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 space-y-1.5 text-xs"
+                    className="p-3.5 rounded-xl bg-slate-50 dark:bg-[#090d19]/80 border border-slate-200/80 dark:border-indigo-500/15 space-y-1.5 text-xs"
                   >
                     <div className="flex items-center justify-between">
-                      <span className="font-semibold text-slate-800 dark:text-slate-200">
+                      <span className="font-semibold text-slate-800 dark:text-indigo-300">
                         [{rec.section}]
                       </span>
                       <span
                         className={`text-[9px] uppercase font-bold px-2 py-0.5 rounded ${
                           rec.priority === 'high'
-                            ? 'bg-rose-500/15 text-rose-700 dark:text-rose-300'
-                            : 'bg-amber-500/15 text-amber-700 dark:text-amber-300'
+                            ? 'bg-rose-500/15 text-rose-700 dark:text-rose-300 border border-rose-500/30'
+                            : 'bg-amber-500/15 text-amber-700 dark:text-amber-300 border border-amber-500/30'
                         }`}
                       >
                         {rec.priority} priority
@@ -457,7 +457,7 @@ export function ATSOptimizer({
 
           {/* Right Column: Skills Gap Analysis */}
           <div className="lg:col-span-5 space-y-6">
-            <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 space-y-4 shadow-sm dark:shadow-xl">
+            <div className="bg-white dark:bg-[#0e1424]/80 border border-slate-200/80 dark:border-indigo-500/20 backdrop-blur-xl rounded-2xl p-5 space-y-4 shadow-sm dark:shadow-[0_8px_32px_rgba(0,0,0,0.37)]">
               <h3 className="text-xs font-bold text-slate-900 dark:text-slate-100 uppercase tracking-wider flex items-center justify-between">
                 <span>Keyword Gap Analysis</span>
               </h3>
@@ -481,7 +481,7 @@ export function ATSOptimizer({
               </div>
 
               {/* Missing Skills */}
-              <div className="space-y-2 pt-2 border-t border-slate-100 dark:border-slate-800">
+              <div className="space-y-2 pt-2 border-t border-slate-100 dark:border-indigo-500/15">
                 <span className="text-[11px] font-bold text-rose-600 dark:text-rose-400 flex items-center gap-1.5 uppercase">
                   <AlertTriangle className="w-3.5 h-3.5" />
                   <span>Missing High-Frequency Keywords ({scanResult.skillsAnalysis.missingHardSkills.length})</span>
@@ -504,18 +504,18 @@ export function ATSOptimizer({
 
             {/* Tailored Bullet Rewrite Preview */}
             {scanResult.tailoredBulletSuggestions && scanResult.tailoredBulletSuggestions.length > 0 && (
-              <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 space-y-3 shadow-sm dark:shadow-xl text-xs">
+              <div className="bg-white dark:bg-[#0e1424]/80 border border-slate-200/80 dark:border-indigo-500/20 backdrop-blur-xl rounded-2xl p-5 space-y-3 shadow-sm dark:shadow-[0_8px_32px_rgba(0,0,0,0.37)] text-xs">
                 <h3 className="text-xs font-bold text-slate-900 dark:text-slate-100 uppercase tracking-wider">
                   Sample STAR Bullet Optimization
                 </h3>
                 <div className="space-y-2.5">
-                  <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400">
-                    <span className="text-[10px] uppercase font-bold text-slate-500 block mb-1">Original Bullet</span>
+                  <div className="p-3 rounded-xl bg-slate-50 dark:bg-[#090d19]/80 border border-slate-200/80 dark:border-indigo-500/15 text-slate-600 dark:text-slate-400">
+                    <span className="text-[10px] uppercase font-bold text-slate-500 dark:text-slate-400 block mb-1">Original Bullet</span>
                     <p className="italic">"{scanResult.tailoredBulletSuggestions[0].original}"</p>
                   </div>
                   <div className="p-3 rounded-xl bg-indigo-50 dark:bg-indigo-950/40 border border-indigo-200 dark:border-indigo-500/30 text-indigo-900 dark:text-indigo-200">
-                    <span className="text-[10px] uppercase font-bold text-indigo-600 dark:text-indigo-400 block mb-1 flex items-center gap-1">
-                      <Sparkles className="w-3 h-3" />
+                    <span className="text-[10px] uppercase font-bold text-indigo-600 dark:text-cyan-400 block mb-1 flex items-center gap-1">
+                      <Sparkles className="w-3 h-3 text-cyan-400" />
                       <span>Optimized STAR Achievement (+Metrics)</span>
                     </span>
                     <p className="font-medium text-slate-900 dark:text-slate-100">

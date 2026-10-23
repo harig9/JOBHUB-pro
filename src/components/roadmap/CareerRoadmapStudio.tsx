@@ -106,37 +106,38 @@ export function CareerRoadmapStudio({
   return (
     <div className="space-y-6">
       {/* Header Banner */}
-      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-indigo-900 via-indigo-800 to-slate-900 p-6 md:p-8 text-white shadow-xl">
+      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-[#0c1427] via-[#101c3d] to-[#1e153b] border border-indigo-500/25 p-6 md:p-8 text-white shadow-2xl">
+        <div className="absolute -right-16 -top-16 w-60 h-60 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none" />
         <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/30 text-indigo-200 text-xs font-semibold backdrop-blur-sm border border-indigo-400/20 mb-3">
-              <Compass className="w-3.5 h-3.5" />
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/20 text-indigo-300 text-xs font-semibold backdrop-blur-sm border border-indigo-400/30 mb-3">
+              <Compass className="w-3.5 h-3.5 text-cyan-400" />
               Dynamic Preparation Roadmap
             </div>
-            <h1 className="text-2xl md:text-3xl font-bold tracking-tight">
+            <h1 className="text-2xl md:text-3xl font-extrabold tracking-tight">
               {activeRoadmap.targetRole}
             </h1>
-            <p className="text-indigo-200 text-sm mt-2 max-w-2xl">
+            <p className="text-slate-300 text-sm mt-2 max-w-2xl leading-relaxed">
               Target Completion: <span className="font-semibold text-white">{activeRoadmap.targetDate}</span> • Commitment:{' '}
-              <span className="font-semibold text-white">{activeRoadmap.weeklyHoursAvailability} hrs/week</span> ({activeRoadmap.estimatedWeeks} weeks planned)
+              <span className="font-semibold text-cyan-300">{activeRoadmap.weeklyHoursAvailability} hrs/week</span> ({activeRoadmap.estimatedWeeks} weeks planned)
             </p>
           </div>
 
           {/* Quick Stats Widget */}
-          <div className="bg-white/10 dark:bg-black/20 backdrop-blur-md rounded-xl p-4 border border-white/15 flex items-center gap-6 self-start md:self-auto">
+          <div className="bg-white/10 dark:bg-[#070b14]/70 backdrop-blur-md rounded-2xl p-4 border border-white/15 dark:border-indigo-500/25 flex items-center gap-6 self-start md:self-auto shadow-lg">
             <div className="text-center">
-              <span className="text-3xl font-extrabold text-emerald-400">{actualPercent}%</span>
-              <p className="text-xs text-indigo-200 font-medium mt-0.5">Completed</p>
+              <span className="text-3xl font-black text-emerald-400 dark:drop-shadow-[0_0_10px_rgba(52,211,153,0.4)] tabular-nums">{actualPercent}%</span>
+              <p className="text-xs text-indigo-200 dark:text-slate-400 font-medium mt-0.5">Completed</p>
             </div>
-            <div className="h-10 w-px bg-white/20" />
+            <div className="h-10 w-px bg-white/20 dark:bg-indigo-500/20" />
             <div>
-              <p className="text-xs text-indigo-200">Tasks Progress</p>
+              <p className="text-xs text-indigo-200 dark:text-slate-400">Tasks Progress</p>
               <p className="text-sm font-semibold text-white mt-0.5">
                 {completedTasks} / {totalTasks} finished
               </p>
-              <div className="w-32 bg-white/20 h-1.5 rounded-full overflow-hidden mt-2">
+              <div className="w-32 bg-white/20 dark:bg-[#070b14] h-1.5 rounded-full overflow-hidden mt-2 border border-transparent dark:border-indigo-500/20">
                 <div
-                  className="bg-emerald-400 h-full rounded-full transition-all duration-500"
+                  className="bg-emerald-400 h-full rounded-full transition-all duration-500 shadow-[0_0_8px_rgba(52,211,153,0.6)]"
                   style={{ width: `${actualPercent}%` }}
                 />
               </div>
@@ -146,7 +147,7 @@ export function CareerRoadmapStudio({
 
         {/* Roadmap Switcher if multiple */}
         {roadmaps.length > 1 && (
-          <div className="mt-6 pt-4 border-t border-indigo-700/50 flex items-center gap-2">
+          <div className="mt-6 pt-4 border-t border-indigo-700/50 dark:border-indigo-500/20 flex items-center gap-2">
             <span className="text-xs text-indigo-300 font-medium">Switch Target Role:</span>
             {roadmaps.map((r) => (
               <button
@@ -166,11 +167,11 @@ export function CareerRoadmapStudio({
       </div>
 
       {/* Assumptions & Realistic Disclaimer Notice */}
-      <div className="p-4 rounded-xl bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800/50 flex items-start gap-3">
+      <div className="p-4 rounded-2xl bg-amber-50 dark:bg-[#0e1424]/80 border border-amber-200 dark:border-amber-500/20 flex items-start gap-3 backdrop-blur-xl">
         <AlertCircle className="w-5 h-5 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
         <div className="text-xs text-amber-900 dark:text-amber-200 space-y-1">
           <p className="font-semibold">Planning Assumptions & Realistic Timeline:</p>
-          <ul className="list-disc list-inside space-y-0.5 text-amber-800 dark:text-amber-300">
+          <ul className="list-disc list-inside space-y-0.5 text-amber-800 dark:text-amber-300/90">
             {activeRoadmap.assumptions.map((assump, idx) => (
               <li key={idx}>{assump}</li>
             ))}
@@ -182,14 +183,14 @@ export function CareerRoadmapStudio({
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
         <button
           onClick={onNavigateToCodingLab}
-          className="flex items-center justify-between p-3.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-indigo-500 dark:hover:border-indigo-500 transition-all text-left group"
+          className="flex items-center justify-between p-3.5 rounded-2xl bg-white dark:bg-[#0e1424]/80 border border-slate-200/80 dark:border-indigo-500/20 hover:border-indigo-500 dark:hover:border-indigo-400/50 dark:hover:shadow-[0_0_20px_rgba(99,102,241,0.2)] transition-all text-left group backdrop-blur-xl cursor-pointer"
         >
           <div className="flex items-center gap-3">
-            <div className="p-2 rounded-lg bg-indigo-50 dark:bg-indigo-950/50 text-indigo-600 dark:text-indigo-400">
+            <div className="p-2 rounded-xl bg-indigo-50 dark:bg-indigo-500/15 text-indigo-600 dark:text-indigo-400 border border-transparent dark:border-indigo-500/20">
               <Code2 className="w-4 h-4" />
             </div>
             <div>
-              <p className="text-xs font-semibold text-slate-800 dark:text-slate-200 group-hover:text-indigo-600 dark:group-hover:text-indigo-400">
+              <p className="text-xs font-semibold text-slate-800 dark:text-slate-200 group-hover:text-indigo-600 dark:group-hover:text-cyan-300 transition-colors">
                 Coding & Aptitude Lab
               </p>
               <p className="text-[11px] text-slate-500 dark:text-slate-400">Solve daily practice challenges</p>
@@ -200,14 +201,14 @@ export function CareerRoadmapStudio({
 
         <button
           onClick={onNavigateToSkillGap}
-          className="flex items-center justify-between p-3.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-emerald-500 dark:hover:border-emerald-500 transition-all text-left group"
+          className="flex items-center justify-between p-3.5 rounded-2xl bg-white dark:bg-[#0e1424]/80 border border-slate-200/80 dark:border-indigo-500/20 hover:border-emerald-500 dark:hover:border-emerald-400/50 dark:hover:shadow-[0_0_20px_rgba(52,211,153,0.2)] transition-all text-left group backdrop-blur-xl cursor-pointer"
         >
           <div className="flex items-center gap-3">
-            <div className="p-2 rounded-lg bg-emerald-50 dark:bg-emerald-950/50 text-emerald-600 dark:text-emerald-400">
+            <div className="p-2 rounded-xl bg-emerald-50 dark:bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-transparent dark:border-emerald-500/20">
               <Target className="w-4 h-4" />
             </div>
             <div>
-              <p className="text-xs font-semibold text-slate-800 dark:text-slate-200 group-hover:text-emerald-600 dark:group-hover:text-emerald-400">
+              <p className="text-xs font-semibold text-slate-800 dark:text-slate-200 group-hover:text-emerald-600 dark:group-hover:text-emerald-300 transition-colors">
                 Skill Gap Navigator
               </p>
               <p className="text-[11px] text-slate-500 dark:text-slate-400">Inspect verified vs required skills</p>
@@ -218,14 +219,14 @@ export function CareerRoadmapStudio({
 
         <button
           onClick={onNavigateToInterviewCoach}
-          className="flex items-center justify-between p-3.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-purple-500 dark:hover:border-purple-500 transition-all text-left group"
+          className="flex items-center justify-between p-3.5 rounded-2xl bg-white dark:bg-[#0e1424]/80 border border-slate-200/80 dark:border-indigo-500/20 hover:border-purple-500 dark:hover:border-purple-400/50 dark:hover:shadow-[0_0_20px_rgba(192,132,252,0.2)] transition-all text-left group backdrop-blur-xl cursor-pointer"
         >
           <div className="flex items-center gap-3">
-            <div className="p-2 rounded-lg bg-purple-50 dark:bg-purple-950/50 text-purple-600 dark:text-purple-400">
+            <div className="p-2 rounded-xl bg-purple-50 dark:bg-purple-500/15 text-purple-600 dark:text-purple-400 border border-transparent dark:border-purple-500/20">
               <Sparkles className="w-4 h-4" />
             </div>
             <div>
-              <p className="text-xs font-semibold text-slate-800 dark:text-slate-200 group-hover:text-purple-600 dark:group-hover:text-purple-400">
+              <p className="text-xs font-semibold text-slate-800 dark:text-slate-200 group-hover:text-purple-600 dark:group-hover:text-purple-300 transition-colors">
                 Mock Interview Studio
               </p>
               <p className="text-[11px] text-slate-500 dark:text-slate-400">Simulate rounds for this role</p>
@@ -238,17 +239,17 @@ export function CareerRoadmapStudio({
       {/* Milestones and Tasks List */}
       <div className="space-y-6">
         <h2 className="text-lg font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2">
-          <TrendingUp className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
+          <TrendingUp className="w-5 h-5 text-indigo-600 dark:text-cyan-400" />
           Structured Milestones & Action Tasks
         </h2>
 
         {activeRoadmap.milestones.map((milestone) => (
           <div
             key={milestone.id}
-            className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden shadow-sm"
+            className="rounded-3xl border border-slate-200/80 dark:border-indigo-500/20 bg-white dark:bg-[#0e1424]/85 overflow-hidden shadow-sm dark:shadow-[0_8px_32px_rgba(0,0,0,0.37)] backdrop-blur-xl"
           >
             {/* Milestone Header */}
-            <div className="p-5 bg-slate-50 dark:bg-slate-800/50 border-b border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div className="p-5 bg-slate-50 dark:bg-[#090d19]/80 border-b border-slate-200/80 dark:border-indigo-500/15 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div className="flex items-start gap-3">
                 <span className="flex items-center justify-center w-7 h-7 rounded-lg bg-indigo-600 text-white font-bold text-xs shrink-0 mt-0.5">
                   W{milestone.weekNumber}
@@ -282,18 +283,18 @@ export function CareerRoadmapStudio({
                   <div
                     key={task.id}
                     onClick={() => handleToggleTask(task.id, task.completed)}
-                    className={`cursor-pointer p-3.5 rounded-xl border transition-all flex items-start gap-3 ${
+                    className={`cursor-pointer p-3.5 rounded-2xl border transition-all flex items-start gap-3 backdrop-blur-md ${
                       task.completed
-                        ? 'bg-emerald-50/60 dark:bg-emerald-950/20 border-emerald-200 dark:border-emerald-800/40 text-slate-600 dark:text-slate-400'
-                        : 'bg-white dark:bg-slate-800/40 border-slate-200 dark:border-slate-800 hover:border-indigo-400 dark:hover:border-indigo-600 text-slate-800 dark:text-slate-200'
+                        ? 'bg-emerald-50/60 dark:bg-emerald-950/20 border-emerald-200 dark:border-emerald-500/30 text-slate-600 dark:text-slate-400'
+                        : 'bg-white dark:bg-[#090d19]/80 border-slate-200/80 dark:border-indigo-500/15 hover:border-indigo-400 dark:hover:border-indigo-400/50 dark:hover:shadow-[0_0_15px_rgba(99,102,241,0.15)] text-slate-800 dark:text-slate-200'
                     }`}
                   >
                     <button
                       disabled={togglingTaskId === task.id}
-                      className="mt-0.5 shrink-0 text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400"
+                      className="mt-0.5 shrink-0 text-slate-400 hover:text-indigo-600 dark:hover:text-cyan-400 cursor-pointer"
                     >
                       {task.completed ? (
-                        <CheckCircle2 className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
+                        <CheckCircle2 className="w-5 h-5 text-emerald-600 dark:text-emerald-400 drop-shadow-[0_0_6px_rgba(52,211,153,0.5)]" />
                       ) : (
                         <Circle className="w-5 h-5 text-slate-300 dark:text-slate-600" />
                       )}
@@ -307,21 +308,21 @@ export function CareerRoadmapStudio({
                         >
                           {task.title}
                         </span>
-                        <span className="text-[10px] text-slate-400 flex items-center gap-1 shrink-0">
-                          <Clock className="w-3 h-3" />
+                        <span className="text-[10px] text-slate-400 flex items-center gap-1 shrink-0 font-mono">
+                          <Clock className="w-3 h-3 text-cyan-400" />
                           {task.durationHours}h
                         </span>
                       </div>
                       <p
                         className={`text-[11px] mt-1 ${
-                          task.completed ? 'text-slate-400' : 'text-slate-500 dark:text-slate-400'
+                          task.completed ? 'text-slate-400 dark:text-slate-500' : 'text-slate-500 dark:text-slate-400'
                         }`}
                       >
                         {task.description}
                       </p>
 
                       <div className="flex items-center gap-2 mt-2">
-                        <span className="text-[10px] uppercase font-bold text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/50 px-2 py-0.5 rounded">
+                        <span className="text-[10px] uppercase font-bold text-indigo-600 dark:text-cyan-400 bg-indigo-50 dark:bg-indigo-950/50 border border-transparent dark:border-cyan-500/20 px-2 py-0.5 rounded-md font-mono">
                           {task.category}
                         </span>
                         <span className="text-[10px] text-slate-400">
