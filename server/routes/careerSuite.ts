@@ -1,6 +1,6 @@
-import { Router, Request, Response, NextFunction } from 'express';
-import { careerDb } from '../careerDb.js';
-import { db as coreDb } from '../db.js';
+import { Router, type Request, type Response, type NextFunction } from 'express';
+import { careerDb } from '../careerDb.ts';
+import { db as coreDb } from '../db.ts';
 
 const router = Router();
 

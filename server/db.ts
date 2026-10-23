@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import {
+import type {
   User,
   Job,
   JobStatus,
@@ -10,7 +10,7 @@ import {
   InterviewSession,
   ATSScanResult,
   CareerAnalytics,
-} from './types.js';
+} from './types.ts';
 
 interface DatabaseSchema {
   users: User[];

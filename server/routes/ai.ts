@@ -1,5 +1,5 @@
-import { Router, Request, Response, NextFunction } from 'express';
-import { db } from '../db.js';
+import { Router, type Request, type Response, type NextFunction } from 'express';
+import { db } from '../db.ts';
 import {
   analyzeATS,
   optimizeResumeATS,
@@ -10,7 +10,7 @@ import {
   generateFollowUpEmail,
   generateInterviewCheatSheet,
   chatCareerAssistant,
-} from '../gemini.js';
+} from '../gemini.ts';
 
 const router = Router();
 

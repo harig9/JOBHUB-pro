@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import {
+import type {
   CareerRoadmap,
   AptitudeQuestionItem,
   PracticeSubmission,
@@ -14,8 +14,8 @@ import {
   JobMatchResult,
   Job,
   Resume,
-} from './types.js';
-import { db as coreDb } from './db.js';
+} from './types.ts';
+import { db as coreDb } from './db.ts';
 
 interface CareerSuiteDatabaseSchema {
   roadmaps: CareerRoadmap[];

@@ -1,6 +1,6 @@
-import { Router, Request, Response, NextFunction } from 'express';
-import { db } from '../db.js';
-import { JobStatus } from '../types.js';
+import { Router, type Request, type Response, type NextFunction } from 'express';
+import { db } from '../db.ts';
+import type { JobStatus } from '../types.ts';
 
 const router = Router();
 

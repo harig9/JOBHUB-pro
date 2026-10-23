@@ -1,5 +1,5 @@
 import { GoogleGenAI, Type } from '@google/genai';
-import { Resume, Job, ATSScanResult, InterviewQuestion } from './types.js';
+import type { Resume, Job, ATSScanResult, InterviewQuestion } from './types.ts';
 
 let aiClient: GoogleGenAI | null = null;
 

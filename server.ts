@@ -1,16 +1,16 @@
-import express, { Request, Response, NextFunction } from 'express';
+import express, { type Request, type Response, type NextFunction } from 'express';
 import path from 'path';
 import dotenv from 'dotenv';
-import authRoutes from './server/routes/auth.js';
-import jobsRoutes from './server/routes/jobs.js';
-import resumesRoutes from './server/routes/resumes.js';
-import aiRoutes from './server/routes/ai.js';
-import coverLettersRoutes from './server/routes/coverLetters.js';
-import interviewsRoutes from './server/routes/interviews.js';
-import analyticsRoutes from './server/routes/analytics.js';
-import systemRoutes from './server/routes/system.js';
-import documentsRoutes from './server/routes/documents.js';
-import careerRoutes from './server/routes/careerSuite.js';
+import authRoutes from './server/routes/auth.ts';
+import jobsRoutes from './server/routes/jobs.ts';
+import resumesRoutes from './server/routes/resumes.ts';
+import aiRoutes from './server/routes/ai.ts';
+import coverLettersRoutes from './server/routes/coverLetters.ts';
+import interviewsRoutes from './server/routes/interviews.ts';
+import analyticsRoutes from './server/routes/analytics.ts';
+import systemRoutes from './server/routes/system.ts';
+import documentsRoutes from './server/routes/documents.ts';
+import careerRoutes from './server/routes/careerSuite.ts';
 
 dotenv.config();
 
